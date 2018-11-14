@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+
 Route::post('/search', 'SearchController@searchByKeyword');
 
 Route::post('user/register', 'APIRegisterController@register');
@@ -28,4 +29,7 @@ Route::middleware('jwt.auth')->get('users', function(Request $request) {
 });
 
 Route::get('/search', 'SearchController@searchByKeyword');
+
+
+Route::post('/search', 'SearchController@searchByKeyword');
 
