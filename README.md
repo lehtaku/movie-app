@@ -12,7 +12,7 @@ http://www.omdbapi.com/
 
 ## Authentication to API
 
-www.endumx.com
+www.endumx.com  
 endumx / YtSmCmOpSR
 
 ## JWT AUTH
@@ -37,4 +37,3 @@ Header: `Authorization` Value: `Bearer {token}`
 
 ![JWT](https://media.discordapp.net/attachments/499833921513586688/512266191067283462/unknown.png)
 
-Request to search:
