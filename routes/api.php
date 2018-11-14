@@ -29,3 +29,7 @@ Route::middleware('jwt.auth')->get('users', function(Request $request) {
 });
 
 Route::get('/search', 'SearchController@searchByKeyword');
+
+
+Route::post('/search', 'SearchController@searchByKeyword');
+
