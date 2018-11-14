@@ -24,9 +24,8 @@ class SearchController extends Controller
 
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&s=' . $encodedKeyword)->getBody();
 
-        $searchResults = json_decode($response, true)['Search'];
+        return json_decode($response, true)['Search'];
 
-        return $searchResults;
     }
 
     public function findById(Request $request) {
@@ -35,8 +34,7 @@ class SearchController extends Controller
 
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $imdbId)->getBody();
 
-        $searchResults = json_decode($response, true)['Search'];
+        return json_decode($response, true);
 
-        return $searchResults;
     }
 }
