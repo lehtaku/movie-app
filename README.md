@@ -15,7 +15,7 @@ http://www.omdbapi.com/
 www.endumx.com  
 endumx / YtSmCmOpSR
 
-http://endumx:YtSmCmOpSR@endumx.com
+Authorization: Basic ZW5kdW14Oll0U21DbU9wU1I=
 
 ## JWT AUTH
 
