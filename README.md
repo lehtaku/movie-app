@@ -44,5 +44,5 @@ Header: `Authorization` Value: `Bearer {token}`
 
 | Method | URL | Parameters | Description |
 |--------|-----|------------|-------------|
-| POST | endumx.com/api/search | keyword | Returns JSON from all movies found by keyword |
+| POST | /api/search | keyword | Returns JSON from all movies found by keyword |
 
