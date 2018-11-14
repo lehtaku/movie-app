@@ -9,15 +9,31 @@ use GuzzleHttp\Client;
 
 class SearchController extends Controller
 {
+    private $client;
+    private $apiKey;
+
+    public function __construct()
+    {
+        $this->client = new Client(['base_uri' => 'http://www.omdbapi.com/']);
+        $this->apiKey = env("OMDB_API_KEY");
+    }
+
     public function searchByKeyword(Request $request) {
 
-        $client = new Client(['base_uri' => 'http://www.omdbapi.com/']);
+        $encodedKeyword = urlencode($request->query('keyword'));
 
-        $apiKey = env("OMDB_API_KEY");
+        $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&s=' . $encodedKeyword)->getBody();
 
-        $encodedKeyword = $request->query('keyword');
+        $searchResults = json_decode($response, true)['Search'];
 
-        $response = $client->request('GET', '?apikey=' . $apiKey . '&s=' . $encodedKeyword)->getBody();
+        return $searchResults;
+    }
+
+    public function findById(Request $request) {
+
+        $imdbId = $request->query('id');
+
+        $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $imdbId)->getBody();
 
         $searchResults = json_decode($response, true)['Search'];
 

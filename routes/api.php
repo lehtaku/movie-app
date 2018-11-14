@@ -18,7 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/search', 'SearchController@searchByKeyword');
+Route::post('movie/search', 'SearchController@searchByKeyword');
+Route::post('movie/findById', 'SearchController@findById');
 
 
 Route::post('user/register', 'APIRegisterController@register');
