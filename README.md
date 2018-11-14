@@ -52,6 +52,6 @@ Request to middleware jwtx.auth:
 
 | Method | URL | Parameters | Description |
 |--------|-----|------------|-------------|
-| POST | api/search | keyword | Returns JSON from all movies found by keyword |
-| POST | api/findById | id | Returns JSON from single movie found by IMDb-ID |
+| POST | api/search | keyword(required), type(optional) | Returns JSON from all movies found by keyword |
+| POST | api/findById | id | Returns JSON from single movie found by IMDb-id |
 
