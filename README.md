@@ -1,3 +1,12 @@
+<p align="center">
+  <img height="125px" src="https://media.discordapp.net/attachments/499833921513586688/512340159312953347/movieapptransparent.png">
+</p>
+<p align="center">
+    <img height="40px" src="https://cdn.worldvectorlogo.com/logos/angular-3.svg">
+</p>
+
+
+
 # Movie App
 
 ## ToDo
