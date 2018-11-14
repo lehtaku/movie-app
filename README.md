@@ -15,7 +15,14 @@ http://www.omdbapi.com/
 www.endumx.com  
 endumx / YtSmCmOpSR
 
-http://endumx:YtSmCmOpSR@endumx.com
+
+
+With JWT
+
+`Authorization: Basic ZW5kdW14Oll0U21DbU9wU1I=`  
+`JWT-X: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE1NDIyMTE4OTQsImV4cCI6MTU0MjIxNTQ5NCwibmJmIjoxNTQyMjExODk0LCJqdGkiOiJkRkxtM0laTE10cHVkbmVZIn0.5B8zpGttm5NTSDcu-Zc-GepOc4jy-r9WKzxjS9N26kw`
+
+
 
 ## JWT AUTH
 
@@ -33,9 +40,14 @@ Route::middleware('jwt.auth')->get('users', function(Request $request) {
 
 ### Making requests
 
-Request to middleware jwt.auth:  
-Header: `Authorization` Value: `Bearer {token}`  
-`Authorization: Bearer {token}`
+Request to middleware jwtx.auth:  
+`Authorization: Basic ZW5kdW14Oll0U21DbU9wU1I=`  
+  
+`JWT-X: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE1NDIyMTE4OTQsImV4cCI6MTU0MjIxNTQ5NCwibmJmIjoxNTQyMjExODk0LCJqdGkiOiJkRkxtM0laTE10cHVkbmVZIn0.5B8zpGttm5NTSDcu-Zc-GepOc4jy-r9WKzxjS9N26kw`
 
-![JWT](https://media.discordapp.net/attachments/499833921513586688/512266191067283462/unknown.png)
+![JWT](https://media.discordapp.net/attachments/499833921513586688/512304344461475851/unknown.png)
+
+| Method | URL | Parameters | Description |
+|--------|-----|------------|-------------|
+| POST | /api/search | keyword | Returns JSON from all movies found by keyword |
 
