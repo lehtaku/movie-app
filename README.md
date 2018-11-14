@@ -40,11 +40,15 @@ With JWT
 
 ```php
 <?php
+// User authentication
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
 
-Route::middleware('jwt.auth')->get('users', function(Request $request) {
-    return auth()->user();
+// Auth Routes
+Route::group(['middleware' => ['jwtx.auth']], function () {
+    Route::get('users', function(Request $request) {
+        return auth()->user();
+    });
 });
 ```
 
