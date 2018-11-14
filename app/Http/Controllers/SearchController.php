@@ -9,16 +9,18 @@ use GuzzleHttp\Client;
 
 class SearchController extends Controller
 {
-    public function searchMovies(Request $request) {
-
-        $encodedParam = $request->input('search');
-
-        $apiKey = '39d58ddb';
+    public function searchByKeyword(Request $request) {
 
         $client = new Client();
 
-        $res = $client->request('GET', 'http://www.omdbapi.com/?apikey=' . $apiKey . '&s=' . $encodedParam);
+        $apiKey = env("OMDB_API_KEY");
 
-        return $res->getBody();
+        $encodedKeyword = $request->query('keyword');
+
+        $response = $client->request('GET', 'http://www.omdbapi.com/?apikey=' . $apiKey . '&s=' . $encodedKeyword)->getBody();
+
+        $searchResults = json_decode($response, true)['Search'];
+
+        return $searchResults;
     }
 }

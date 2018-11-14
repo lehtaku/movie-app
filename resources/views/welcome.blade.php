@@ -6,18 +6,22 @@
 
         <title>Laravel</title>
 
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        img {
+            margin-top: 50px;
+        }
+    </style>
+
     </head>
     <body>
 
-    <h2>Haku</h2>
-
-    <form method="POST" action="/search">
-        <input type="text" name="search" id="search" placeholder="Hakusana">
-        <input type="submit" value="Etsi">
-
-        @csrf
-
-    </form>
+    <img src="http://www.pngall.com/wp-content/uploads/2018/04/Under-Construction-Transparent.png" alt="UnderCons">
 
     </body>
 </html>
