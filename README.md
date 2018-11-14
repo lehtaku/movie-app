@@ -42,3 +42,7 @@ Header: `Authorization` Value: `Bearer {token}`
 
 ![JWT](https://media.discordapp.net/attachments/499833921513586688/512266191067283462/unknown.png)
 
+| Method | URL | Parameters | Description |
+|--------|-----|------------|-------------|
+| POST | endumx.com/api/search | keyword | Returns JSON from all movies found by keyword |
+
