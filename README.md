@@ -15,10 +15,14 @@ http://www.omdbapi.com/
 www.endumx.com  
 endumx / YtSmCmOpSR
 
-Authorization: Basic ZW5kdW14Oll0U21DbU9wU1I=
 
-With JWT (at least for now)
-http://endumx.com/api/users?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9lbmR1bXguY29tL2FwaS91c2VyL3JlZ2lzdGVyIiwiaWF0IjoxNTQyMjEwMDg5LCJleHAiOjE1NDIyMTM2ODksIm5iZiI6MTU0MjIxMDA4OSwianRpIjoidkt2aENpMmsxWW9TcGEzeCJ9.TGsZA0THBc-riU8llpcGxC5_CXKfexDwGTxps17fn2w
+
+With JWT
+
+`Authorization: Basic ZW5kdW14Oll0U21DbU9wU1I=`
+`JWT-X: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE1NDIyMTE4OTQsImV4cCI6MTU0MjIxNTQ5NCwibmJmIjoxNTQyMjExODk0LCJqdGkiOiJkRkxtM0laTE10cHVkbmVZIn0.5B8zpGttm5NTSDcu-Zc-GepOc4jy-r9WKzxjS9N26kw`
+
+
 
 ## JWT AUTH
 
