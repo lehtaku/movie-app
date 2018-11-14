@@ -10,8 +10,8 @@
 
 ### JWT AUTH
 
-Request to middleware jwt.auth:
-Header: `Authorization` Value: `Bearer {token}`
+Request to middleware jwt.auth:  
+Header: `Authorization` Value: `Bearer {token}`  
 `Authorization: Bearer {token}`
 
 http://www.omdbapi.com/
