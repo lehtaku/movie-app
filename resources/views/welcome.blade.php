@@ -11,10 +11,12 @@
 
     <h2>Haku</h2>
 
-    <form method="POST" action="search/">
+    <form method="POST" action="/search">
         <input type="text" name="search" id="search" placeholder="Hakusana">
         <input type="submit" value="Etsi">
+
         @csrf
+
     </form>
 
     </body>

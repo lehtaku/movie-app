@@ -12,6 +12,7 @@ class SearchController extends Controller
     public function searchMovies(Request $request) {
 
         $encodedParam = $request->input('search');
+
         $apiKey = '39d58ddb';
 
         $client = new Client();
