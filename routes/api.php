@@ -24,12 +24,10 @@ Route::post('/search', 'SearchController@searchByKeyword');
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
 
-Route::middleware('jwt.auth')->get('users', function(Request $request) {
+Route::middleware('jwtx.auth')->get('users', function(Request $request) {
     return auth()->user();
 });
 
 Route::get('/search', 'SearchController@searchByKeyword');
 
-
-Route::post('/search', 'SearchController@searchByKeyword');
 
