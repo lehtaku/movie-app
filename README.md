@@ -19,7 +19,7 @@ endumx / YtSmCmOpSR
 
 With JWT
 
-`Authorization: Basic ZW5kdW14Oll0U21DbU9wU1I=`
+`Authorization: Basic ZW5kdW14Oll0U21DbU9wU1I=`  
 `JWT-X: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE1NDIyMTE4OTQsImV4cCI6MTU0MjIxNTQ5NCwibmJmIjoxNTQyMjExODk0LCJqdGkiOiJkRkxtM0laTE10cHVkbmVZIn0.5B8zpGttm5NTSDcu-Zc-GepOc4jy-r9WKzxjS9N26kw`
 
 
