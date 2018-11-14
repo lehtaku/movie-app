@@ -11,13 +11,13 @@ class SearchController extends Controller
 {
     public function searchByKeyword(Request $request) {
 
-        $client = new Client();
+        $client = new Client(['base_uri' => 'http://www.omdbapi.com/']);
 
         $apiKey = env("OMDB_API_KEY");
 
         $encodedKeyword = $request->query('keyword');
 
-        $response = $client->request('GET', 'http://www.omdbapi.com/?apikey=' . $apiKey . '&s=' . $encodedKeyword)->getBody();
+        $response = $client->request('GET', '?apikey=' . $apiKey . '&s=' . $encodedKeyword)->getBody();
 
         $searchResults = json_decode($response, true)['Search'];
 
