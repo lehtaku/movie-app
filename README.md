@@ -15,6 +15,8 @@ http://www.omdbapi.com/
 www.endumx.com  
 endumx / YtSmCmOpSR
 
+http://endumx:YtSmCmOpSR@endumx.com
+
 ## JWT AUTH
 
 ### API Routes
