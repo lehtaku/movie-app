@@ -67,5 +67,5 @@ Request to middleware jwtx.auth:
 |--------|-----|------------|----------------|-------------|
 | POST | api/movie/search | keyword (required), type (optional) | Basic | Returns all movies found by keyword |
 | POST | api/movie/findById | id (IMDb) | Basic | Returns all details from single movie |
-| POST | api/movie/showPlaylist | n | Basic & Bearer {token} | Returns logged in user own playlist |
+| POST | api/movie/showPlaylist |: - :| Basic & Bearer {token} | Returns logged in user own playlist |
 
