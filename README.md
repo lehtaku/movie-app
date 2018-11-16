@@ -15,10 +15,8 @@
 * Movie search
     * By keyword(s) ✔️	
     * By IMDb-ID ✔️
-<br>
 * User register ✔️
 * User login ✔️
-<br>
 * "Playlist"
     * Get user playlist ✔️
     * Add movie to playlist ✖️
