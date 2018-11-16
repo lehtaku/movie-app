@@ -38,17 +38,26 @@ With JWT
 ### API Routes
 
 ```php
-<?php
+// Group JWT-Auth routes
+Route::middleware(['jwtx.auth'])->group(function () {
+
+    // Show signed user
+    Route::post('user', function(Request $request) {
+        return auth()->user();
+    });
+
+    // Playlist functionality
+    Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
+});
+
+// Search from OMDb
+Route::post('movie/search', 'SearchController@searchByKeyword');
+Route::post('movie/findById', 'SearchController@findById');
+
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
-
-// Auth Routes
-Route::group(['middleware' => ['jwtx.auth']], function () {
-    Route::get('users', function(Request $request) {
-        return auth()->user();
-    });
-});
 ```
 
 ### Making requests
