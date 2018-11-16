@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Playlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PlaylistController extends Controller
 {
@@ -33,9 +34,13 @@ class PlaylistController extends Controller
     }
 
     public function getToplist() {
-        $topList = Playlist::all()
-                    ->groupBy('movie_id')
-                    ->orderBy('movie');
+
+        $topList = DB::table('playlists')
+                        ->select('movie_id', DB::raw('COUNT(movie_id) AS `amount`'))
+                        ->groupBy('movie_id')
+                        ->orderBy('amount', 'desc')
+                        ->take(10)
+                        ->get();
 
         return response()->json($topList);
     }
