@@ -13,18 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
+// Middleware
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('jwtx.auth')->post('users', function(Request $request) {
+    return auth()->user();
+});
 
+Route::middleware('jwtx.auth')->post('movie/showPlaylist', 'PlaylistController@getPlaylist');
 
 Route::post('movie/search', 'SearchController@searchByKeyword');
 Route::post('movie/findById', 'SearchController@findById');
-
+Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
 
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
 
-Route::middleware('jwtx.auth')->get('users', function(Request $request) {
-    return auth()->user();
-});

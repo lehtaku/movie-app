@@ -12,10 +12,6 @@
             height: 100%;
             text-align: center;
         }
-
-        img {
-            margin-top: 50px;
-        }
     </style>
 
     </head>
