@@ -19,7 +19,7 @@
 * User login ✔️
 * "Playlist"
     * Get user playlist ✔️
-    * Add movie to playlist ✖️
+    * Add movie to playlist ✔️
 
 http://www.omdbapi.com/
 
