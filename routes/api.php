@@ -13,19 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-// Middleware
+// Group JWT routes
+Route::middleware(['jwtx.auth'])->group(function () {
+
+    Route::post('users', function(Request $request) {
+        return auth()->user();
+    });
+
+    Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware('jwtx.auth')->post('users', function(Request $request) {
-    return auth()->user();
-});
-
-Route::middleware('jwtx.auth')->post('movie/showPlaylist', 'PlaylistController@getPlaylist');
 
 Route::post('movie/search', 'SearchController@searchByKeyword');
 Route::post('movie/findById', 'SearchController@findById');
-Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
 
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
