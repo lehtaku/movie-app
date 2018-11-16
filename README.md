@@ -10,13 +10,16 @@
 ***
 
 
-## ToDo
+## Things ToDo
 
-* Elokuvien haku
-* Käyttäjän rekisteröityminen ✔️
-* Käyttäjän kirjautuminen ✔️
-* Oma Playlist
-    * user_id, ?imdb_id?
+* Movie search
+    * By keyword(s) ✔️	
+    * By IMDb-ID ✔️
+* User register ✔️
+* User login ✔️
+* "Playlist"
+    * Get user playlist ✔️
+    * Add movie to playlist ✖️
 
 http://www.omdbapi.com/
 
