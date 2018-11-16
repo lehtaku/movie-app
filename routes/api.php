@@ -17,12 +17,12 @@ use Illuminate\Http\Request;
 Route::middleware(['jwtx.auth'])->group(function () {
 
     // Show signed user
-    Route::post('user', function(Request $request) {
+    Route::get('user', function(Request $request) {
         return auth()->user();
     });
 
     // User playlist
-    Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
 });
 
@@ -31,7 +31,7 @@ Route::get('movie/search', 'SearchController@searchByKeyword');
 Route::get('movie/findById', 'SearchController@findById');
 
 // Playlist functionality
-Route::get('movie/getMostPopular', 'SearchController@PlaylistController@getMostPopular');
+Route::get('movie/getToplist', 'SearchController@PlaylistController@getMostPopular');
 
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');
