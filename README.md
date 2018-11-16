@@ -63,7 +63,7 @@ Request to middleware jwtx.auth:
 
 
 
-## Search requests
+## API Requests
 
 | Method | URL | Parameters | Authentication | Description |
 |--------|-----|------------|----------------|-------------|
