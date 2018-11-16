@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 Route::middleware(['jwtx.auth'])->group(function () {
 
     // Show signed user
-    Route::post('/user', function(Request $request) {
+    Route::post('user', function(Request $request) {
         return auth()->user();
     });
 

@@ -18,7 +18,7 @@ class CreatePlaylistsTable extends Migration
             $table->string('movie_id', 16);
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->boolean('watched');
+            $table->boolean('watched')->default(false);
             $table->timestamps();
         });
     }
