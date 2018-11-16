@@ -13,23 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-// Group JWT routes
+// Group JWT-Auth routes
 Route::middleware(['jwtx.auth'])->group(function () {
 
-    Route::post('users', function(Request $request) {
+    // Show signed user
+    Route::post('/user', function(Request $request) {
         return auth()->user();
     });
 
+    // Playlist functionality
     Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+// Search from OMDb
 Route::post('movie/search', 'SearchController@searchByKeyword');
 Route::post('movie/findById', 'SearchController@findById');
 
+// User authentication
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
