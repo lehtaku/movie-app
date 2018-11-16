@@ -21,14 +21,17 @@ Route::middleware(['jwtx.auth'])->group(function () {
         return auth()->user();
     });
 
-    // Playlist functionality
+    // User playlist
     Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
 });
 
 // Search from OMDb
-Route::post('movie/search', 'SearchController@searchByKeyword');
-Route::post('movie/findById', 'SearchController@findById');
+Route::get('movie/search', 'SearchController@searchByKeyword');
+Route::get('movie/findById', 'SearchController@findById');
+
+// Playlist functionality
+Route::get('movie/getMostPopular', 'SearchController@PlaylistController@getMostPopular');
 
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');

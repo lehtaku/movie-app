@@ -32,6 +32,10 @@ class PlaylistController extends Controller
         return "Saved!";
     }
 
+    public function getMostPopular() {
+        //
+    }
+
     public function getUserId() {
         return auth()->id();
     }
