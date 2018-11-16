@@ -28,9 +28,9 @@ http://www.omdbapi.com/
 www.endumx.com  
 endumx / YtSmCmOpSR
 
-With JWT
-`Authorization: Basic ZW5kdW14Oll0U21DbU9wU1I=`  
-`JWT-X: Bearer {token}`
+With JWT  
+`Authorization : Basic ZW5kdW14Oll0U21DbU9wU1I=`  
+`JWT-X : Bearer {token}`
 
 
 ## JWT AUTH
