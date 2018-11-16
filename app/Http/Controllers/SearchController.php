@@ -38,7 +38,7 @@ class SearchController extends Controller
     public function findById(Request $request) {
         // Similar to search function but for finding specific movie
 
-        $imdbId = $request->query('id');
+        $imdbId = $request->query('movieId');
 
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $imdbId . '&plot=full')->getBody();
         $json = json_decode($response, true);
