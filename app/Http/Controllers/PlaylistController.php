@@ -32,8 +32,12 @@ class PlaylistController extends Controller
         return "Saved!";
     }
 
-    public function getMostPopular() {
-        //
+    public function getToplist() {
+        $topList = Playlist::all()
+                    ->groupBy('movie_id')
+                    ->orderBy('movie');
+
+        return response()->json($topList);
     }
 
     public function getUserId() {

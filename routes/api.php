@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 Route::middleware(['jwtx.auth'])->group(function () {
 
     // Show signed user
-    Route::get('user', function(Request $request) {
+    Route::get('user/getInfo', function(Request $request) {
         return auth()->user();
     });
 
@@ -31,7 +31,7 @@ Route::get('movie/search', 'SearchController@searchByKeyword');
 Route::get('movie/findById', 'SearchController@findById');
 
 // Playlist functionality
-Route::get('movie/getToplist', 'SearchController@PlaylistController@getMostPopular');
+Route::get('movie/getToplist', 'PlaylistController@getToplist');
 
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');
