@@ -1,10 +1,20 @@
-# Movie App
+
+<p align="center">
+  <img height="150px" src="https://media.discordapp.net/attachments/499833921513586688/512349750163669004/movieappsmall.png">
+   <img height="125px" src="https://media.discordapp.net/attachments/499833921513586688/512350532401233930/movieapptransparent.png">
+</p>
+<p align="center">
+    <img height="40px" src="https://cdn.worldvectorlogo.com/logos/angular-3.svg">
+</p>
+
+***
+
 
 ## ToDo
 
 * Elokuvien haku
-* Käyttäjän rekisteröityminen
-* Käyttäjän kirjautuminen
+* Käyttäjän rekisteröityminen ✔️
+* Käyttäjän kirjautuminen ✔️
 * Oma Playlist
     * user_id, ?imdb_id?
 
@@ -30,11 +40,15 @@ With JWT
 
 ```php
 <?php
+// User authentication
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
 
-Route::middleware('jwt.auth')->get('users', function(Request $request) {
-    return auth()->user();
+// Auth Routes
+Route::group(['middleware' => ['jwtx.auth']], function () {
+    Route::get('users', function(Request $request) {
+        return auth()->user();
+    });
 });
 ```
 
@@ -52,6 +66,6 @@ Request to middleware jwtx.auth:
 
 | Method | URL | Parameters | Description |
 |--------|-----|------------|-------------|
-| POST | api/search | keyword | Returns JSON from all movies found by keyword |
-| POST | api/findById | id | Returns JSON from single movie found by IMDb-ID |
+| POST | api/movie/search | keyword(required), type(optional) | Returns JSON from all movies found by keyword |
+| POST | api/movie/findById | id | Returns JSON from single movie found by IMDb-id |
 

@@ -29,4 +29,3 @@ Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
 
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
-
