@@ -13,21 +13,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Group JWT-Auth routes
+Route::middleware(['jwtx.auth'])->group(function () {
 
-
-Route::post('movie/search', 'SearchController@searchByKeyword');
-Route::post('movie/findById', 'SearchController@findById');
-
-
-Route::post('user/register', 'APIRegisterController@register');
-Route::post('user/login', 'APILoginController@login');
-
-// Auth Routes
-Route::group(['middleware' => ['jwtx.auth']], function () {
-    Route::get('users', function(Request $request) {
+    // Show signed user
+    Route::get('user/getInfo', function(Request $request) {
         return auth()->user();
     });
+
+    // User playlist
+    Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
 });
+
+// Search from OMDb
+Route::get('movie/search', 'SearchController@searchByKeyword');
+Route::get('movie/findById', 'SearchController@findById');
+
+// Playlist functionality
+Route::get('movie/getToplist', 'PlaylistController@getToplist');
+
+// User authentication
+Route::post('user/register', 'APIRegisterController@register');
+Route::post('user/login', 'APILoginController@login');
