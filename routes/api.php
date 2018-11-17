@@ -22,6 +22,7 @@ Route::middleware(['jwtx.auth'])->group(function () {
     // User playlist
     Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
+    Route::post('movie/setWatched', 'PlaylistController@addToPlaylist');
 });
 
 // Search from OMDb

@@ -11,12 +11,13 @@ class PlaylistController extends Controller
 {
     private $playlist;
 
-    public function __construct(Playlist $playlist) {
+    public function __construct(Playlist $playlist)
+    {
         $this->playlist = $playlist;
     }
 
-    public function getPlaylist() {
-
+    public function getPlaylist()
+    {
         $playlist = Playlist::where('user_id', $this->getUserId())
             ->latest()
             ->get();
@@ -24,8 +25,8 @@ class PlaylistController extends Controller
         return $playlist;
     }
 
-    public function addToPlaylist(Request $request) {
-
+    public function addToPlaylist(Request $request)
+    {
         $user_id = $this->getUserId();
         $movie_id = $request->movieId;
 
@@ -36,8 +37,8 @@ class PlaylistController extends Controller
         return "Saved!";
     }
 
-    public function getToplist() {
-
+    public function getToplist()
+    {
         $topList = DB::table('playlists')
                         ->select('movie_id', DB::raw('COUNT(movie_id) AS `amount`'))
                         ->groupBy('movie_id')
@@ -48,11 +49,13 @@ class PlaylistController extends Controller
         return response()->json($topList);
     }
 
-    public function setWatched() {
-        //
+    public function setWatched(Request $request)
+    {
+        $movieId = $request->movieId;
     }
 
-    public function getUserId() {
+    public function getUserId()
+    {
         return auth()->id();
     }
 }

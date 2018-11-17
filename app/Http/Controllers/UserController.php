@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function getInfo() {
+    public function getInfo()
+    {
         return auth()->user();
     }
 }

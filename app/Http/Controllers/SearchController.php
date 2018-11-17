@@ -18,30 +18,25 @@ class SearchController extends Controller
         $this->apiKey = config('app.omdb_key');
     }
 
-    public function searchByKeyword(Request $request) {
-
-        // Get search parameters from request
+    public function searchByKeyword(Request $request)
+    {
         $keyword = $request->keyword;
         if ($request->type !== null){
             $movieType = $request->type;
         } else {
             $movieType = '';
         }
-        
-        // Make search request
+
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&s=' . $keyword . '&type=' . $movieType)->getBody();
         $json = json_decode($response, true);
 
-        // Check if empty
         if ($json['Response'] === 'False') return $json['Error'];
 
-        // Return results if found any
         return $json['Search'];
     }
 
-    public function findById(Request $request) {
-
-        // Similar to search function but for finding specific movie
+    public function findById(Request $request)
+    {
         $imdbId = $request->query('movieId');
 
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $imdbId . '&plot=full')->getBody();
