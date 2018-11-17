@@ -15,11 +15,14 @@
 * Movie search
     * By keyword(s) ✔️	
     * By IMDb-ID ✔️
-* User register ✔️
-* User login ✔️
+* User
+    * Register ✔️
+    * User login ✔️
+    * Change password ✖️
 * "Playlist"
     * Get user playlist ✔️
     * Add movie to playlist ✔️
+    * Select watched / not watched ✖️
 
 http://www.omdbapi.com/
 
