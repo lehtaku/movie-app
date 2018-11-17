@@ -15,11 +15,15 @@
 * Movie search
     * By keyword(s) ✔️	
     * By IMDb-ID ✔️
-* User register ✔️
-* User login ✔️
-* "Playlist"
+* User
+    * Register ✔️
+    * User login ✔️
+    * Change password ✖️
+* Playlist
     * Get user playlist ✔️
     * Add movie to playlist ✔️
+    * Get 10 most popular movies ✔️
+    * Select watched / not watched ✖️
 
 http://www.omdbapi.com/
 
@@ -79,8 +83,8 @@ Request to middleware jwtx.auth:
 | POST | api/user/register | name, email, password | Basic | Register user and return JWT-token |
 | POST | api/user/login | email, password | Basic | Login user and return JWT-token |
 | GET | api/user/getInfo | ✖️ | Basic,<br>Bearer {token} | Return signed user information |
-| GET | api/movie/search | keyword,<br> type (optional) | Basic | Returns search results by keyword |
-| GET | api/movie/findById | movieId | Basic | Returns all details from a single movie |
+| POST | api/movie/search | keyword,<br> type (optional) | Basic | Returns search results by keyword |
+| POST | api/movie/findById | movieId | Basic | Returns all details from a single movie |
 | GET | api/movie/showPlaylist | ✖️ | Basic, <br>Bearer {token} | Returns signed user own playlist |
 | POST | api/movie/addToPlaylist | movieId | Basic, <br>Bearer {token} | Saves movie to user own playlist |
 | GET | api/movie/getToplist | ✖️ | Basic | Return 10 most favouritelisted movies |
