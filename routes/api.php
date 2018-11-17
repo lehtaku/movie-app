@@ -27,8 +27,8 @@ Route::middleware(['jwtx.auth'])->group(function () {
 });
 
 // Search from OMDb
-Route::get('movie/search', 'SearchController@searchByKeyword');
-Route::get('movie/findById', 'SearchController@findById');
+Route::post('movie/search', 'SearchController@searchByKeyword');
+Route::post('movie/findById', 'SearchController@findById');
 
 // Playlist functionality
 Route::get('movie/getToplist', 'PlaylistController@getToplist');

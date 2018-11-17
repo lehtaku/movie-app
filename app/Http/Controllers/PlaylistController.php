@@ -13,9 +13,13 @@ class PlaylistController extends Controller
 
         $user_id = $this->getUserId();
 
-        $playlist = Playlist::where('user_id', $user_id)
-                        ->orderBy('created_at', 'DESC')
-                        ->get();
+        try {
+            $playlist = Playlist::where('user_id', $user_id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } catch (\Exception $error) {
+            return 'Failed: ' . $error;
+        }
 
         return $playlist;
     }
