@@ -21,13 +21,16 @@ class SearchController extends Controller
     public function searchByKeyword(Request $request) {
 
         // Get search parameters from request
-        $keyword = urlencode($request->query('keyword'));
-        $movieType = urlencode($request->query('type'));
-
+        $keyword = $request->input('keyword');
+        if ($request->input('type') !== null){
+            $movieType = $request->input('type');
+        } else {
+            $movieType = '';
+        }
+        
         // Make search request
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&s=' . $keyword . '&type=' . $movieType)->getBody();
         $json = json_decode($response, true);
-
         // Check if empty
         if ($json['Response'] === 'False') return $json['Error'];
 
