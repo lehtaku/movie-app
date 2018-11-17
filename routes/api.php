@@ -17,9 +17,7 @@ use Illuminate\Http\Request;
 Route::middleware(['jwtx.auth'])->group(function () {
 
     // Show signed user
-    Route::get('user/getInfo', function(Request $request) {
-        return auth()->user();
-    });
+    Route::get('user/getInfo', 'UserController@getInfo');
 
     // User playlist
     Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');

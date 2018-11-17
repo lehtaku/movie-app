@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class PlaylistController extends Controller
 {
+    private $playlist;
+
+    public function __construct(Playlist $playlist) {
+        $this->playlist = $playlist;
+    }
+
     public function getPlaylist() {
 
-        $user_id = $this->getUserId();
-
-        try {
-            $playlist = Playlist::where('user_id', $user_id)
-                ->orderBy('created_at', 'desc')
-                ->get();
-        } catch (\Exception $error) {
-            return 'Failed: ' . $error;
-        }
+        $playlist = Playlist::where('user_id', $this->getUserId())
+            ->latest()
+            ->get();
 
         return $playlist;
     }
@@ -27,12 +27,11 @@ class PlaylistController extends Controller
     public function addToPlaylist(Request $request) {
 
         $user_id = $this->getUserId();
-        $movie_id = $request->query('movieId');
+        $movie_id = $request->movieId;
 
-        $playlist = New Playlist;
-        $playlist->movie_id = $movie_id;
-        $playlist->user_id = $user_id;
-        $playlist->save();
+        $this->playlist->movie_id = $movie_id;
+        $this->playlist->user_id = $user_id;
+        $this->playlist->save();
 
         return "Saved!";
     }
@@ -42,11 +41,15 @@ class PlaylistController extends Controller
         $topList = DB::table('playlists')
                         ->select('movie_id', DB::raw('COUNT(movie_id) AS `amount`'))
                         ->groupBy('movie_id')
-                        ->orderBy('amount', 'desc')
+                        ->latest('amount')
                         ->take(10)
                         ->get();
 
         return response()->json($topList);
+    }
+
+    public function setWatched() {
+        //
     }
 
     public function getUserId() {

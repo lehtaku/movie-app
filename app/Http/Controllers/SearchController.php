@@ -15,15 +15,15 @@ class SearchController extends Controller
     public function __construct()
     {
         $this->client = new Client(['base_uri' => 'http://www.omdbapi.com/']);
-        $this->apiKey = env("OMDB_API_KEY");
+        $this->apiKey = config('app.omdb_key');
     }
 
     public function searchByKeyword(Request $request) {
 
         // Get search parameters from request
-        $keyword = $request->input('keyword');
-        if ($request->input('type') !== null){
-            $movieType = $request->input('type');
+        $keyword = $request->keyword;
+        if ($request->type !== null){
+            $movieType = $request->type;
         } else {
             $movieType = '';
         }
@@ -31,6 +31,7 @@ class SearchController extends Controller
         // Make search request
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&s=' . $keyword . '&type=' . $movieType)->getBody();
         $json = json_decode($response, true);
+
         // Check if empty
         if ($json['Response'] === 'False') return $json['Error'];
 
@@ -39,8 +40,8 @@ class SearchController extends Controller
     }
 
     public function findById(Request $request) {
-        // Similar to search function but for finding specific movie
 
+        // Similar to search function but for finding specific movie
         $imdbId = $request->query('movieId');
 
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $imdbId . '&plot=full')->getBody();
