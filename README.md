@@ -19,9 +19,10 @@
     * Register ✔️
     * User login ✔️
     * Change password ✖️
-* "Playlist"
+* Playlist
     * Get user playlist ✔️
     * Add movie to playlist ✔️
+    * Get 10 most popular movies ✔️
     * Select watched / not watched ✖️
 
 http://www.omdbapi.com/
