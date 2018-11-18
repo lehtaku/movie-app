@@ -21,7 +21,7 @@
     * Change password ✖️
 * Playlist
     * Get user playlist ✔️
-    * Add movie to playlist ✔️ (Validation still needs to be done)
+    * Add movie to playlist ✔️
     * Get 10 most popular movies ✔️
     * Select watched / not watched ✔️
 
