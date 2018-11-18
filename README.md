@@ -23,7 +23,7 @@
     * Get user playlist ✔️
     * Add movie to playlist ✔️
     * Get 10 most popular movies ✔️
-    * Select watched / not watched ✖️
+    * Select watched / not watched ✔️
 
 http://www.omdbapi.com/
 
@@ -46,18 +46,20 @@ With JWT
 Route::middleware(['jwtx.auth'])->group(function () {
 
     // Show signed user
-    Route::post('user', function(Request $request) {
-        return auth()->user();
-    });
+    Route::get('user/getInfo', 'UserController@getInfo');
 
-    // Playlist functionality
-    Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    // User playlist
+    Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
+    Route::post('movie/setWatched', 'PlaylistController@setWatched');
 });
 
 // Search from OMDb
 Route::post('movie/search', 'SearchController@searchByKeyword');
 Route::post('movie/findById', 'SearchController@findById');
+
+// Playlist functionality
+Route::get('movie/getToplist', 'PlaylistController@getToplist');
 
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');
@@ -87,5 +89,6 @@ Request to middleware jwtx.auth:
 | POST | api/movie/findById | movieId | Basic | Returns all details from a single movie |
 | GET | api/movie/showPlaylist | ✖️ | Basic, <br>Bearer {token} | Returns signed user own playlist |
 | POST | api/movie/addToPlaylist | movieId | Basic, <br>Bearer {token} | Saves movie to user own playlist |
-| GET | api/movie/getToplist | ✖️ | Basic | Return 10 most favouritelisted movies |
+| GET | api/movie/getToplist | ✖️ | Basic | Return 10 most popular movies |
+| POST | api/movie/setWatched | movieId | Basic,<br>Bearer {token} | Sets 'watched' to true if false and vice versa |
 
