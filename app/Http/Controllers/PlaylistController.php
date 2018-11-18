@@ -32,10 +32,22 @@ class PlaylistController extends Controller
     public function addToPlaylist(Request $request)
     {
         try {
-            $this->playlist->movie_id = $request->movieId;
-            $this->playlist->user_id = $this->getUserId();
-            $this->playlist->save();
-            return jsend_success($this->playlist);
+            $movieId = $request->movieId;
+            $userId = $this->getUserId();
+
+            $item = Playlist::where([
+                'movie_id' => $movieId,
+                'user_id' => $userId
+            ])->first();
+
+            if ($item !== null) {
+                return jsend_error('Olet jo suosikkilistannut!');
+            } else {
+                $this->playlist->movie_id = $movieId;
+                $this->playlist->user_id = $userId;
+                $this->playlist->save();
+                return jsend_success($this->playlist);
+            }
         }
         catch (\Exception $e) {
             return jsend_error('Unable to save item to playlist: ' . $e->getMessage());
