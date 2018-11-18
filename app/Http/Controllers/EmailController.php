@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller
 {
-    public function send(Request $request) {
+    public function send() {
         $target = 'akulehtonen@hotmail.com';
 
         Mail::to($target)->send(new DemoEmail());
-
-        return "Success";
     }
 }
