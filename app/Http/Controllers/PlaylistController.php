@@ -41,7 +41,7 @@ class PlaylistController extends Controller
             ])->first();
 
             if ($item !== null) {
-                return jsend_error('Olet jo suosikkilistannut!');
+                return jsend_error('Movie '. $movieId .' is already on your playlist');
             } else {
                 $this->playlist->movie_id = $movieId;
                 $this->playlist->user_id = $userId;
