@@ -18,46 +18,60 @@ class PlaylistController extends Controller
 
     public function getPlaylist()
     {
-        $playlist = Playlist::where('user_id', $this->getUserId())
-            ->latest()
-            ->get();
-
-        return $playlist;
+        try {
+            $playlist = Playlist::where('user_id', $this->getUserId())
+                ->latest()
+                ->get();
+            return jsend_success($playlist);
+        }
+        catch (\Exception $e) {
+            jsend_error('Unable to get playlist: ' . $e->getMessage());
+        }
     }
 
     public function addToPlaylist(Request $request)
     {
-        $user_id = $this->getUserId();
-        $movie_id = $request->movieId;
-
-        $this->playlist->movie_id = $movie_id;
-        $this->playlist->user_id = $user_id;
-        $this->playlist->save();
-
-        return "Saved!";
+        try {
+            $this->playlist->movie_id = $request->movieId;
+            $this->playlist->user_id = $this->getUserId();
+            $this->playlist->save();
+            return jsend_success($this->playlist);
+        }
+        catch (\Exception $e) {
+            return jsend_error('Unable to save item to playlist: ' . $e->getMessage());
+        }
     }
 
     public function getToplist()
     {
-        $topList = DB::table('playlists')
-                        ->select('movie_id', DB::raw('COUNT(movie_id) AS `amount`'))
-                        ->groupBy('movie_id')
-                        ->latest('amount')
-                        ->take(10)
-                        ->get();
-
-        return response()->json($topList);
+        try {
+            $topList = DB::table('playlists')
+                ->select('movie_id', DB::raw('COUNT(movie_id) AS `amount`'))
+                ->groupBy('movie_id')
+                ->latest('amount')
+                ->take(10)
+                ->get();
+            return jsend_success($topList);
+        }
+        catch (\Exception $e) {
+            return jsend_error('Unable to get toplist: ' . $e->getMessage());
+        }
     }
 
     public function setWatched(Request $request)
     {
-        $item = Playlist::where([
-            'movie_id' => $request->movieId,
-            'user_id' => $this->getUserId()
-        ])->first();
-
-        $item->watched = !$item->watched;
-        $item->save();
+        try {
+            $item = Playlist::where([
+                'movie_id' => $request->movieId,
+                'user_id' => $this->getUserId()
+            ])->first();
+            $item->watched = !$item->watched;
+            $item->save();
+            return jsend_success($item);
+        }
+        catch (\Exception $e) {
+            return jsend_error('Unable to change watched state: ' . $e->getMessage());
+        }
     }
 
     public function getUserId()

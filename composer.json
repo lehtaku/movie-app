@@ -11,6 +11,7 @@
         "guzzlehttp/guzzle": "~6.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
+        "shalvah/laravel-jsend": "^1.1",
         "tymon/jwt-auth": "^0.5.12"
     },
     "require-dev": {
