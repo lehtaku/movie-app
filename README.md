@@ -21,9 +21,9 @@
     * Change password ✖️
 * Playlist
     * Get user playlist ✔️
-    * Add movie to playlist ✔️
+    * Add movie to playlist ✔️ (Validation still needs to be done)
     * Get 10 most popular movies ✔️
-    * Select watched / not watched ✖️
+    * Select watched / not watched ✔️
 
 http://www.omdbapi.com/
 
@@ -87,5 +87,6 @@ Request to middleware jwtx.auth:
 | POST | api/movie/findById | movieId | Basic | Returns all details from a single movie |
 | GET | api/movie/showPlaylist | ✖️ | Basic, <br>Bearer {token} | Returns signed user own playlist |
 | POST | api/movie/addToPlaylist | movieId | Basic, <br>Bearer {token} | Saves movie to user own playlist |
-| GET | api/movie/getToplist | ✖️ | Basic | Return 10 most favouritelisted movies |
+| GET | api/movie/getToplist | ✖️ | Basic | Return 10 most popular movies |
+| POST | api/movie/setWatched | movieId | Basic,<br>Bearer {token} | Sets 'watched' to true if false and vice versa |
 
