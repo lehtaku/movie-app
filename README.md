@@ -46,18 +46,20 @@ With JWT
 Route::middleware(['jwtx.auth'])->group(function () {
 
     // Show signed user
-    Route::post('user', function(Request $request) {
-        return auth()->user();
-    });
+    Route::get('user/getInfo', 'UserController@getInfo');
 
-    // Playlist functionality
-    Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    // User playlist
+    Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
+    Route::post('movie/setWatched', 'PlaylistController@setWatched');
 });
 
 // Search from OMDb
 Route::post('movie/search', 'SearchController@searchByKeyword');
 Route::post('movie/findById', 'SearchController@findById');
+
+// Playlist functionality
+Route::get('movie/getToplist', 'PlaylistController@getToplist');
 
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');
