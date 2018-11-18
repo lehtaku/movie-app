@@ -13,6 +13,6 @@ class EmailController extends Controller
 
         Mail::to($target)->send(new DemoEmail());
 
-        return response()->json(['message' => 'Request completed']);
+        return "Success";
     }
 }
