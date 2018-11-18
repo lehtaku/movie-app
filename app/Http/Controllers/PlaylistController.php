@@ -51,7 +51,13 @@ class PlaylistController extends Controller
 
     public function setWatched(Request $request)
     {
-        $movieId = $request->movieId;
+        $item = Playlist::where([
+            'movie_id' => $request->movieId,
+            'user_id' => $this->getUserId()
+        ])->first();
+
+        $item->watched = !$item->watched;
+        $item->save();
     }
 
     public function getUserId()
