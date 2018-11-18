@@ -11,7 +11,7 @@ return [
      */
     'supportsCredentials' => false,
     'allowedOrigins' => ['*'],
-    'allowedHeaders' => ['Content-Type', 'X-Requested-With', 'Authorization', 'JWT-X', 'keyword'],
+    'allowedHeaders' => ['Content-Type', 'X-Requested-With', 'Authorization', 'JWT-X', 'keyword', 'Access-Control-Allow-Origin', '*'],
     'allowedMethods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ex: ['GET', 'POST', 'PUT',  'DELETE', 'OPTIONS']
     'exposedHeaders' => [],
     'maxAge' => 0,
