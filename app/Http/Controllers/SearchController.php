@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Playlist;
 use Illuminate\Http\Request;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -37,13 +38,35 @@ class SearchController extends Controller
 
     public function findById(Request $request)
     {
-        $imdbId = $request->query('movieId');
+        $movieId = $request->query('movieId');
+        $userId = $this->getUserId();
 
-        $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $imdbId . '&plot=full')->getBody();
+        $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $movieId . '&plot=full')->getBody();
         $json = json_decode($response, true);
 
         if ($json['Response'] === 'False') return $json['Error'];
 
+        $json['InPlaylist'] = $this->checkIfWatched($userId, $movieId);
+
         return $json;
+    }
+
+    public function getUserId()
+    {
+        if(auth()->id() !== null) {
+            return auth()->id();
+        } else {
+            return null;
+        }
+    }
+
+    public function checkIfWatched($userId, $movieId)
+    {
+        $item = Playlist::where([
+            'movie_id' => $movieId,
+            'user_id' => $userId
+            ])->first();
+
+        return ($item == null ? false : true);
     }
 }
