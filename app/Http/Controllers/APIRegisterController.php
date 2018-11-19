@@ -13,6 +13,17 @@ class APIRegisterController extends Controller
 {
     public function register(Request $request)
     {
+        $trusted_domains = ["http://localhost:4200", "localhost:4200"];
+        
+         if(isset($request->server()['HTTP_ORIGIN'])) {
+             $origin = $request->server()['HTTP_ORIGIN'];
+ 
+             if(in_array($origin, $trusted_domains)) {
+                 header('Access-Control-Allow-Origin: ' . $origin);
+                 header('Access-Control-Allow-Headers: Origin, Content-Type');
+             }
+         }
+         
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255|unique:users',
             'name' => 'required',
