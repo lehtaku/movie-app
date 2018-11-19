@@ -31,7 +31,17 @@ Tämän lisäksi ajattelimme, että järkevintä on liittää TTMS0900 ja TTMS05
 [Laravel-CORS](https://github.com/barryvdh/laravel-cors) 
 
 #### Guzzle
-[Guzzle](http://docs.guzzlephp.org/en/stable/)  
+[Guzzle](http://docs.guzzlephp.org/en/stable/) on PHP-pohjainen ohjelma, joka on tarkoitettu HTTP pyyntöjen lähettämiseen. Guzzlella voi luoda helposti kutsuja, hallita evästeitä, lähettää JSON dataa ja paljon muuta. Guzzlella voi luoda synkronisia (blocking) ja asynkronisia (non-blocking) pyyntöjä. Guzzle asennetaan käyttäen Composer paketinhallintaohjelmistoa. Perus hakupyynnön lähettäminen Guzzlella on vaivatonta:
+```php
+$client = new GuzzleHttp\Client();
+$res = $client->request('GET', 'https://api.github.com/user');
+echo $res->getStatusCode();
+// "200"
+echo $res->getHeader('content-type');
+// 'application/json; charset=utf8'
+echo $res->getBody();
+// {"type":"User"...'
+```
 
 ### Kehitysympäristö
 
