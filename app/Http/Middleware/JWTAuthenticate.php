@@ -58,9 +58,6 @@ class JWTAuthenticate extends BaseMiddleware
             $response = $next($request);
         }
 
-        // Adds headers to the response
-        $response->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
-
         // Sends it
         return $response;
     }
