@@ -28,7 +28,7 @@ class SearchController extends Controller
     }
     public function findById(Request $request)
     {
-        $movieId = $request->query('movieId');
+        $movieId = $request->movieId;
         $userId = $this->getUserId();
         $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $movieId . '&plot=full')->getBody();
         $json = json_decode($response, true);
