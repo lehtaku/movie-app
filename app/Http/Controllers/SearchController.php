@@ -41,10 +41,10 @@ class SearchController extends Controller
 
             if ($json['Response'] === 'False') return $json['Error'];
 
-            return jsend_success($json['Search']);
+            return $json['Search'];
         }
         catch (\Exception $e) {
-            return jsend_error('Unable to make search: ' . $e->getMessage());
+            return 'Unable to make search: ' . $e->getMessage();
         }
     }
 
@@ -60,10 +60,10 @@ class SearchController extends Controller
             if ($json['Response'] === 'False') return $json['Error'];
             $json['InPlaylist'] = $this->checkIfWatched($userId, $movieId);
 
-            return jsend_success($json);
+            return $json;
         }
         catch (\Exception $e) {
-            return jsend_error('Unable to find that item: ' . $e->getMessage());
+            return 'Unable to find that item: ' . $e->getMessage();
         }
     }
 
@@ -77,10 +77,10 @@ class SearchController extends Controller
                 $videoUrls[] = 'https://www.youtube.com/watch?v=' . $item['id']['videoId'];
             }
 
-            return jsend_success($videoUrls);
+            return $videoUrls;
         }
         catch (\Exception $e) {
-            return jsend_error('Unable to search videos: ' . $e->getMessage());
+            return 'Unable to search videos: ' . $e->getMessage();
         }
     }
 

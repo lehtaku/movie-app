@@ -22,10 +22,10 @@ class PlaylistController extends Controller
             $playlist = Playlist::where('user_id', $this->getUserId())
                 ->latest()
                 ->get();
-            return jsend_success($playlist);
+            return $playlist;
         }
         catch (\Exception $e) {
-            return jsend_error('Unable to get playlist: ' . $e->getMessage());
+            return 'Unable to get playlist: ' . $e->getMessage();
         }
     }
 
@@ -41,16 +41,16 @@ class PlaylistController extends Controller
             ])->first();
 
             if ($item !== null) {
-                return jsend_error('Movie '. $movieId .' is already on your playlist');
+                return 'Movie '. $movieId .' is already on your playlist';
             } else {
                 $this->playlist->movie_id = $movieId;
                 $this->playlist->user_id = $userId;
                 $this->playlist->save();
-                return jsend_success($this->playlist);
+                return $this->playlist;
             }
         }
         catch (\Exception $e) {
-            return jsend_error('Unable to save item to playlist: ' . $e->getMessage());
+            return 'Unable to save item to playlist: ' . $e->getMessage();
         }
     }
 
@@ -63,10 +63,10 @@ class PlaylistController extends Controller
                 ->latest('amount')
                 ->take(10)
                 ->get();
-            return jsend_success($topList);
+            return $topList;
         }
         catch (\Exception $e) {
-            return jsend_error('Unable to get toplist: ' . $e->getMessage());
+            return 'Unable to get toplist: ' . $e->getMessage();
         }
     }
 
@@ -79,10 +79,10 @@ class PlaylistController extends Controller
             ])->first();
             $item->watched = !$item->watched;
             $item->save();
-            return jsend_success($item);
+            return $item;
         }
         catch (\Exception $e) {
-            return jsend_error('Unable to change watched state: ' . $e->getMessage());
+            return 'Unable to change watched state: ' . $e->getMessage();
         }
     }
 
