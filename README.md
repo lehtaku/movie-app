@@ -78,9 +78,6 @@ Request to middleware jwtx.auth:
 
 ![JWT](https://media.discordapp.net/attachments/499833921513586688/512304344461475851/unknown.png)
 
-
-
-
 ## API Requests
 
 Send all requests to:
@@ -100,7 +97,7 @@ Send all requests to:
 |--------|-----|------------|----------------|-------------|
 | POST | movie/search | keyword,<br> type (optional) | Basic | Returns search results by keyword |
 | POST | movie/findById | movieId | Basic,<br>Bearer {token} | Returns all details from a single movie |
-| POST | video/imdbLatest | ✖️ | Basic | Returns 10 last uploaded videos from IMDb channel |
+| GET | video/imdbLatest | ✖️ | Basic | Returns 10 last uploaded videos from IMDb channel |
 
 ### Playlist
 
@@ -110,6 +107,3 @@ Send all requests to:
 | POST | movie/addToPlaylist | movieId, movieId | Basic, <br>Bearer {token} | Saves movie to user own playlist |
 | GET | movie/getToplist | ✖️ | Basic | Return 10 most popular movies |
 | POST | movie/setWatched | movieId | Basic,<br>Bearer {token} | Sets 'watched' to true if false and vice versa |
-
-
-
