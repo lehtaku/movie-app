@@ -9,6 +9,10 @@
 
 ***
 
+# Movie App
+
+Movie App on Angular-sovellus elokuvien hallintaan.
+
 ## JWT Auth
 
 ### Making requests
