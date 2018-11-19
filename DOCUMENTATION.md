@@ -11,10 +11,15 @@
 
 # Movie App
 
-Movie App on Angular-sovellus elokuvien hallintaan.
+Movie App on käyttäjäpohjainen Angular-sovellus elokuvien hallintaan, joka käyttää OMDB APIa.
+
 ## Lähtökohta
 
 Ennen kuin tiesimme minkälaisen sovelluksen toteutamme, lähtökohtana oli toteuttaa backend Laravelilla, koska näimme sen todella tehokkaaksi vaihtoehdoksi luoda oikeasti tuotantokelpoinen sovellus nopeasti ja tehokkaasti.
+
+Tämän lisäksi ajattelimme, että järkevintä on liittää TTMS0900 ja TTMS0500 -opintojaksojen harjoitustyöt yhteen ja näin saada eheämpi kokonaisuus.
+
+## Suunnitelma
 
 ## Asetelma
 
