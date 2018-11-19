@@ -9,10 +9,10 @@ return [
      | to accept any value.
      |
      */
-    'supportsCredentials' => false,
-    'allowedOrigins' => ['http://localhost:4200','*'],
-    'allowedHeaders' => ['Content-Type', 'X-Requested-With', 'Authorization', 'JWT-X', 'keyword'],
-    'allowedMethods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ex: ['GET', 'POST', 'PUT',  'DELETE', 'OPTIONS']
-    'exposedHeaders' => [],
+    'supportsCredentials' => true,
+    'allowedOrigins' => ['*'],
+    'allowedHeaders' => ['*'],
+    'allowedMethods' => ['*'], // ex: ['GET', 'POST', 'PUT',  'DELETE']
+    'exposedHeaders' => ['*'],
     'maxAge' => 0,
 ];
