@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller
 {
-    public function sendEmail() {
-        $target = 'akulehtonen@hotmail.com';
+    public function sendEmail(){
+        $data = array('name'=>"Aku Lehtonen");
 
-        Mail::to($target)->send(new DemoMail());
-
-        return "Email sent!";
+        Mail::send(['text'=>'mail'], $data, function($message) {
+            $message->to('akulehtonen@hotmail.com', 'Aku Lehtonen')->subject
+            ('Laravel Basic Testing Mail');
+            $message->from('admin@endumx.com','Endumx');
+        });
+        echo "Basic Email Sent. Check your inbox.";
     }
 }
