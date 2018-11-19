@@ -9,25 +9,44 @@
 
 ***
 
-# Movie App
+# MovieApp
 
-Movie App on käyttäjäpohjainen Angular-sovellus elokuvien hallintaan, joka käyttää OMDB APIa http://www.omdbapi.com/.
+MovieApp on käyttäjäpohjainen Angular-sovellus elokuvien hallintaan, joka käyttää OMDB APIa http://www.omdbapi.com/.
 
 ## Lähtökohta
 
-Ennen kuin tiesimme minkälaisen sovelluksen toteutamme, lähtökohtana oli toteuttaa backend Laravelilla, koska näimme sen todella tehokkaaksi vaihtoehdoksi luoda oikeasti tuotantokelpoinen sovellus nopeasti ja tehokkaasti.
+Ennen kuin tiesimme minkälaisen sovelluksen toteutamme, lähtökohtana oli toteuttaa backend [Laravelilla](https://laravel.com/), koska näimme sen todella tehokkaaksi vaihtoehdoksi luoda oikeasti tuotantokelpoinen sovellus nopeasti ja tehokkaasti.
 
 Tämän lisäksi ajattelimme, että järkevintä on liittää TTMS0900 ja TTMS0500 -opintojaksojen harjoitustyöt yhteen ja näin saada eheämpi kokonaisuus.
 
-## Suunnitelma
-
 ## Asetelma
 
-### Käytetyt packaget:
+### Paketit & työkalut:
 
-* JWT-Auth https://github.com/tymondesigns/jwt-auth
-* Laravel-CORS https://github.com/barryvdh/laravel-cors
-* Guzzle https://github.com/guzzle/guzzle
+#### JWT-Auth 
+https://github.com/tymondesigns/jwt-auth
+
+#### Laravel-CORS 
+https://github.com/barryvdh/laravel-cors
+
+#### Guzzle 
+http://docs.guzzlephp.org/en/stable/
+
+
+### Kehtiysympäristö
+
+#### Homestead
+https://laravel.com/docs/5.7/homestead
+
+#### Postman
+https://www.getpostman.com/
+
+### Tuotantopalvelin
+
+#### CentOS 7 & Apache HTTP-server
+
+
+
 
 ## Middleware
 
@@ -87,32 +106,28 @@ class JWTAuthenticate extends BaseMiddleware
 
 ## Routes
 ```php
-<?php
-use Illuminate\Http\Request;
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 // Group JWT-Auth routes
 Route::middleware(['jwtx.auth'])->group(function () {
+
     // Show signed user
     Route::get('user/getInfo', 'UserController@getInfo');
+
     // User playlist
-    Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
     Route::post('movie/setWatched', 'PlaylistController@setWatched');
     Route::post('movie/findById', 'SearchController@findById');
 });
+
 // Search from OMDb
 Route::post('movie/search', 'SearchController@searchByKeyword');
+
+// IMDb's Youtube channel 10 latest videos
+Route::get('video/imdbLatest', 'SearchController@imdbLatest');
+
 // Playlist functionality
 Route::get('movie/getToplist', 'PlaylistController@getToplist');
+
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
