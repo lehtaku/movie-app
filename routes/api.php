@@ -26,6 +26,8 @@ Route::middleware(['jwtx.auth'])->group(function () {
     Route::post('movie/findById', 'SearchController@findById');
 });
 
+Route::post('email/send', 'EmailController@sendEmail');
+
 // Search from OMDb
 Route::post('movie/search', 'SearchController@searchByKeyword');
 
