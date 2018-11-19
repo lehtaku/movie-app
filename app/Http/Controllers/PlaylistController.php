@@ -25,7 +25,7 @@ class PlaylistController extends Controller
             return jsend_success($playlist);
         }
         catch (\Exception $e) {
-            jsend_error('Unable to get playlist: ' . $e->getMessage());
+            return jsend_error('Unable to get playlist: ' . $e->getMessage());
         }
     }
 

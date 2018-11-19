@@ -4,52 +4,83 @@ use App\Playlist;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
+use PhpParser\Node\Expr\Cast\Object_;
+
 class SearchController extends Controller
 {
-    private $client;
-    private $apiKey;
+    private $ytClient;
+    private $ytApiKey;
+
+    private $omdbClient;
+    private $omdbApiKey;
+
     public function __construct()
     {
-        $this->client = new Client(['base_uri' => 'http://www.omdbapi.com/']);
-        $this->apiKey = config('app.omdb_key');
+        // Clients
+        $this->omdbClient = new Client(['base_uri' => 'http://www.omdbapi.com/']);
+        $this->ytClient = new Client(['base_uri' => 'https://www.googleapis.com/youtube/v3/search']);
+
+        // API Keys
+        $this->omdbApiKey = config('app.omdb_key');
+        $this->ytApiKey = config('app.yt_key');
     }
+
     public function searchByKeyword(Request $request)
     {
         $keyword = $request->keyword;
-        if ($request->type !== null){
+
+        if ($request->type !== null) {
             $movieType = $request->type;
         } else {
             $movieType = '';
         }
-        $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&s=' . $keyword . '&type=' . $movieType)->getBody();
+
+        $response = $this->omdbClient->request('GET', '?apikey=' . $this->omdbApiKey . '&s=' . $keyword . '&type=' . $movieType)->getBody();
         $json = json_decode($response, true);
+
         if ($json['Response'] === 'False') return $json['Error'];
+
         return $json['Search'];
     }
+
     public function findById(Request $request)
     {
         $movieId = $request->movieId;
         $userId = $this->getUserId();
-        $response = $this->client->request('GET', '?apikey=' . $this->apiKey . '&i=' . $movieId . '&plot=full')->getBody();
+
+        $response = $this->omdbClient->request('GET', '?apikey=' . $this->omdbApiKey . '&i=' . $movieId . '&plot=full')->getBody();
         $json = json_decode($response, true);
+
         if ($json['Response'] === 'False') return $json['Error'];
         $json['InPlaylist'] = $this->checkIfWatched($userId, $movieId);
+
         return $json;
     }
+
     public function getUserId()
     {
-        if(auth()->id() !== null) {
-            return auth()->id();
-        } else {
-            return null;
-        }
+        return auth()->id();
     }
+
     public function checkIfWatched($userId, $movieId)
     {
         $item = Playlist::where([
             'movie_id' => $movieId,
             'user_id' => $userId
             ])->first();
+
         return ($item == null ? false : true);
+    }
+
+    public function imdbLatest()
+    {
+        $response = $this->ytClient->request('GET', '?part=snippet&channelId=UC_vz6SvmIkYs1_H3Wv2SKlg&maxResults=10&order=date&type=video&key=' . $this->ytApiKey)->getBody();
+        $json = json_decode($response, true);
+
+        foreach ($json['items'] as $item) {
+            $videoUrls[] = 'https://www.youtube.com/watch?v=' . $item['id']['videoId'];
+        }
+
+        return $videoUrls;
     }
 }

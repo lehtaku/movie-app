@@ -123,14 +123,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | OpenMovie Database API Key
+    | USER API KEYS
     |--------------------------------------------------------------------------
     |
-    | This key is used make request to OMDb API
+    | User own API keys
 
     */
 
     'omdb_key' => env('OMDB_API_KEY'),
+    'yt_key' => env('YT_API_KEY'),
 
     /*
     |--------------------------------------------------------------------------
