@@ -20,7 +20,7 @@ Route::middleware(['jwtx.auth'])->group(function () {
     Route::get('user/getInfo', 'UserController@getInfo');
 
     // User playlist
-    Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
     Route::post('movie/setWatched', 'PlaylistController@setWatched');
     Route::post('movie/findById', 'SearchController@findById');

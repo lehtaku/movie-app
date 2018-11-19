@@ -33,10 +33,12 @@ class PlaylistController extends Controller
     {
         try {
             $movieId = $request->movieId;
+            $movieName = $request->movieName;
             $userId = $this->getUserId();
 
             $item = Playlist::where([
                 'movie_id' => $movieId,
+                'name' => $movieName,
                 'user_id' => $userId
             ])->first();
 
@@ -44,6 +46,7 @@ class PlaylistController extends Controller
                 return 'Movie '. $movieId .' is already on your playlist';
             } else {
                 $this->playlist->movie_id = $movieId;
+                $this->playlist->name = $movieName;
                 $this->playlist->user_id = $userId;
                 $this->playlist->save();
                 return $this->playlist;
@@ -58,8 +61,8 @@ class PlaylistController extends Controller
     {
         try {
             $topList = DB::table('playlists')
-                ->select('movie_id', DB::raw('COUNT(movie_id) AS `amount`'))
-                ->groupBy('movie_id')
+                ->select('name', DB::raw('COUNT(name) AS `amount`'))
+                ->groupBy('name')
                 ->latest('amount')
                 ->take(10)
                 ->get();
