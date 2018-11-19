@@ -83,30 +83,33 @@ Request to middleware jwtx.auth:
 
 ## API Requests
 
+Send all requests to:
+`www.endumx.com/api/[request]`
+
 ### User 
 
 | Method | URL | Parameters | Authentication | Description |
 |--------|-----|------------|----------------|-------------|
-| POST | api/user/register | name, email, password | Basic | Register user and return JWT-token |
-| POST | api/user/login | email, password | Basic | Login user and return JWT-token |
-| GET | api/user/getInfo | ✖️ | Basic,<br>Bearer {token} | Return signed user information |
+| POST | user/register | name, email, password | Basic | Register user and return JWT-token |
+| POST | user/login | email, password | Basic | Login user and return JWT-token |
+| GET | user/getInfo | ✖️ | Basic,<br>Bearer {token} | Return signed user information |
 
 ### Search
 
 | Method | URL | Parameters | Authentication | Description |
 |--------|-----|------------|----------------|-------------|
-| POST | api/movie/search | keyword,<br> type (optional) | Basic | Returns search results by keyword |
-| POST | api/movie/findById | movieId | Basic,<br>Bearer {token} | Returns all details from a single movie |
-| POST | api/video/imdbLatest | ✖️ | Basic | Returns 10 last uploaded youtube video URLs from IMDb chanel |
+| POST | movie/search | keyword,<br> type (optional) | Basic | Returns search results by keyword |
+| POST | movie/findById | movieId | Basic,<br>Bearer {token} | Returns all details from a single movie |
+| POST | video/imdbLatest | ✖️ | Basic | Returns 10 last uploaded videos from IMDb channel |
 
 ### Playlist
 
 | Method | URL | Parameters | Authentication | Description |
 |--------|-----|------------|----------------|-------------|
-| Post | api/movie/showPlaylist | ✖️ | Basic, <br>Bearer {token} | Returns signed user own playlist |
-| POST | api/movie/addToPlaylist | movieId, movieId | Basic, <br>Bearer {token} | Saves movie to user own playlist |
-| GET | api/movie/getToplist | ✖️ | Basic | Return 10 most popular movies |
-| POST | api/movie/setWatched | movieId | Basic,<br>Bearer {token} | Sets 'watched' to true if false and vice versa |
+| Post | movie/showPlaylist | ✖️ | Basic, <br>Bearer {token} | Returns signed user own playlist |
+| POST | movie/addToPlaylist | movieId, movieId | Basic, <br>Bearer {token} | Saves movie to user own playlist |
+| GET | movie/getToplist | ✖️ | Basic | Return 10 most popular movies |
+| POST | movie/setWatched | movieId | Basic,<br>Bearer {token} | Sets 'watched' to true if false and vice versa |
 
 
 
