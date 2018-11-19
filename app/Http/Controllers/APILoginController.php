@@ -13,7 +13,7 @@ class APILoginController extends Controller
 {
     public function login(Request $request)
     {
-        $trusted_domains = ["http://localhost:4200", "localhost:4200"];
+        /*$trusted_domains = ["http://localhost:4200", "localhost:4200"];
         
          if(isset($request->server()['HTTP_ORIGIN'])) {
              $origin = $request->server()['HTTP_ORIGIN'];
@@ -22,8 +22,8 @@ class APILoginController extends Controller
                  header('Access-Control-Allow-Origin: ' . $origin);
                  header('Access-Control-Allow-Headers: Origin, Content-Type');
              }
-         }
-         
+         }*/
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password'=> 'required'
