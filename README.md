@@ -104,6 +104,6 @@ Send all requests to:
 | Method | URL | Parameters | Authentication | Description |
 |--------|-----|------------|----------------|-------------|
 | Post | movie/showPlaylist | ✖️ | Basic, <br>Bearer {token} | Returns signed user own playlist |
-| POST | movie/addToPlaylist | movieId, movieId | Basic, <br>Bearer {token} | Saves movie to user own playlist |
+| POST | movie/addToPlaylist | movieId,<br>movieName | Basic, <br>Bearer {token} | Saves movie to user own playlist |
 | GET | movie/getToplist | ✖️ | Basic | Return 10 most popular movies |
 | POST | movie/setWatched | movieId | Basic,<br>Bearer {token} | Sets 'watched' to true if false and vice versa |
