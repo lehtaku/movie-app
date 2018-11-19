@@ -24,6 +24,8 @@
     * Add movie to playlist ✔️
     * Get 10 most popular movies ✔️
     * Select watched / not watched ✔️
+* Videos
+    * Get 10 last uploaded videos from IMDb Youtube channel ✔️
 
 http://www.omdbapi.com/
 
