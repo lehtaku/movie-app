@@ -50,7 +50,6 @@ class JWTAuthenticate extends BaseMiddleware
 
         $this->events->fire('tymon.jwt.valid', $user);
         $response = $next($request);
-        $response->header('Access-Control-Allow-Origin', '*');
         return $response;
     }
 }
