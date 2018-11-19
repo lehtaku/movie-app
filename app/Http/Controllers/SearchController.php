@@ -35,12 +35,17 @@ class SearchController extends Controller
             $movieType = '';
         }
 
-        $response = $this->omdbClient->request('GET', '?apikey=' . $this->omdbApiKey . '&s=' . $keyword . '&type=' . $movieType)->getBody();
-        $json = json_decode($response, true);
+        try {
+            $response = $this->omdbClient->request('GET', '?apikey=' . $this->omdbApiKey . '&s=' . $keyword . '&type=' . $movieType)->getBody();
+            $json = json_decode($response, true);
 
-        if ($json['Response'] === 'False') return $json['Error'];
+            if ($json['Response'] === 'False') return $json['Error'];
 
-        return $json['Search'];
+            return jsend_success($json['Search']);
+        }
+        catch (\Exception $e) {
+            return jsend_error('Unable to make search: ' . $e->getMessage());
+        }
     }
 
     public function findById(Request $request)
@@ -48,13 +53,35 @@ class SearchController extends Controller
         $movieId = $request->movieId;
         $userId = $this->getUserId();
 
-        $response = $this->omdbClient->request('GET', '?apikey=' . $this->omdbApiKey . '&i=' . $movieId . '&plot=full')->getBody();
-        $json = json_decode($response, true);
+        try {
+            $response = $this->omdbClient->request('GET', '?apikey=' . $this->omdbApiKey . '&i=' . $movieId . '&plot=full')->getBody();
+            $json = json_decode($response, true);
 
-        if ($json['Response'] === 'False') return $json['Error'];
-        $json['InPlaylist'] = $this->checkIfWatched($userId, $movieId);
+            if ($json['Response'] === 'False') return $json['Error'];
+            $json['InPlaylist'] = $this->checkIfWatched($userId, $movieId);
 
-        return $json;
+            return jsend_success($json);
+        }
+        catch (\Exception $e) {
+            return jsend_error('Unable to find that item: ' . $e->getMessage());
+        }
+    }
+
+    public function imdbLatest()
+    {
+        try {
+            $response = $this->ytClient->request('GET', '?part=snippet&channelId=UC_vz6SvmIkYs1_H3Wv2SKlg&maxResults=10&order=date&type=video&key=' . $this->ytApiKey)->getBody();
+            $json = json_decode($response, true);
+
+            foreach ($json['items'] as $item) {
+                $videoUrls[] = 'https://www.youtube.com/watch?v=' . $item['id']['videoId'];
+            }
+
+            return jsend_success($videoUrls);
+        }
+        catch (\Exception $e) {
+            return jsend_error('Unable to search videos: ' . $e->getMessage());
+        }
     }
 
     public function getUserId()
@@ -70,17 +97,5 @@ class SearchController extends Controller
             ])->first();
 
         return ($item == null ? false : true);
-    }
-
-    public function imdbLatest()
-    {
-        $response = $this->ytClient->request('GET', '?part=snippet&channelId=UC_vz6SvmIkYs1_H3Wv2SKlg&maxResults=10&order=date&type=video&key=' . $this->ytApiKey)->getBody();
-        $json = json_decode($response, true);
-
-        foreach ($json['items'] as $item) {
-            $videoUrls[] = 'https://www.youtube.com/watch?v=' . $item['id']['videoId'];
-        }
-
-        return $videoUrls;
     }
 }
