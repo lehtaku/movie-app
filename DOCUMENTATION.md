@@ -12,8 +12,15 @@
 # Movie App
 
 Movie App on Angular-sovellus elokuvien hallintaan.
+## Lähtökohta
 
-## JWT Auth
+Ennen kuin tiesimme minkälaisen sovelluksen toteutamme, lähtökohtana oli toteuttaa backend Laravelilla, koska näimme sen todella tehokkaaksi vaihtoehdoksi luoda oikeasti tuotantokelpoinen sovellus nopeasti ja tehokkaasti.
+
+## Asetelma
+
+## Autentikaatio
+
+### JWT-AUTH
 
 ### Making requests
 
