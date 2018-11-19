@@ -59,7 +59,7 @@ Route::middleware(['jwtx.auth'])->group(function () {
 Route::post('movie/search', 'SearchController@searchByKeyword');
 
 // IMDb's Youtube channel 10 latest videos
-Route::post('video/imdbLatest', 'SearchController@imdbLatest');
+Route::get('video/imdbLatest', 'SearchController@imdbLatest');
 
 // Playlist functionality
 Route::get('movie/getToplist', 'PlaylistController@getToplist');
@@ -67,6 +67,7 @@ Route::get('movie/getToplist', 'PlaylistController@getToplist');
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
+
 ```
 
 ### Making requests
