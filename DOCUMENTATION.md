@@ -11,7 +11,7 @@
 
 # Movie App
 
-Movie App on käyttäjäpohjainen Angular-sovellus elokuvien hallintaan, joka käyttää OMDB APIa.
+Movie App on käyttäjäpohjainen Angular-sovellus elokuvien hallintaan, joka käyttää OMDB APIa http://www.omdbapi.com/.
 
 ## Lähtökohta
 
@@ -22,6 +22,12 @@ Tämän lisäksi ajattelimme, että järkevintä on liittää TTMS0900 ja TTMS05
 ## Suunnitelma
 
 ## Asetelma
+
+### Käytetyt packaget:
+
+* JWT-Auth https://github.com/tymondesigns/jwt-auth
+* Laravel-CORS https://github.com/barryvdh/laravel-cors
+* Guzzle https://github.com/guzzle/guzzle
 
 ## Middleware
 
