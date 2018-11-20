@@ -24,6 +24,8 @@
     * Add movie to playlist ✔️
     * Get 10 most popular movies ✔️
     * Select watched / not watched ✔️
+* Videos
+    * Get 10 last uploaded videos from IMDb Youtube channel ✔️
 
 http://www.omdbapi.com/
 
@@ -49,14 +51,17 @@ Route::middleware(['jwtx.auth'])->group(function () {
     Route::get('user/getInfo', 'UserController@getInfo');
 
     // User playlist
-    Route::get('movie/showPlaylist', 'PlaylistController@getPlaylist');
+    Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
     Route::post('movie/setWatched', 'PlaylistController@setWatched');
+    Route::post('movie/findById', 'SearchController@findById');
 });
 
 // Search from OMDb
 Route::post('movie/search', 'SearchController@searchByKeyword');
-Route::post('movie/findById', 'SearchController@findById');
+
+// IMDb's Youtube channel 10 latest videos
+Route::get('video/imdbLatest', 'SearchController@imdbLatest');
 
 // Playlist functionality
 Route::get('movie/getToplist', 'PlaylistController@getToplist');
@@ -64,6 +69,7 @@ Route::get('movie/getToplist', 'PlaylistController@getToplist');
 // User authentication
 Route::post('user/register', 'APIRegisterController@register');
 Route::post('user/login', 'APILoginController@login');
+
 ```
 
 ### Making requests
@@ -75,20 +81,32 @@ Request to middleware jwtx.auth:
 
 ![JWT](https://media.discordapp.net/attachments/499833921513586688/512304344461475851/unknown.png)
 
-
-
-
 ## API Requests
+
+Send all requests to:
+`www.endumx.com/api/[request]`
+
+### User 
 
 | Method | URL | Parameters | Authentication | Description |
 |--------|-----|------------|----------------|-------------|
-| POST | api/user/register | name, email, password | Basic | Register user and return JWT-token |
-| POST | api/user/login | email, password | Basic | Login user and return JWT-token |
-| GET | api/user/getInfo | ✖️ | Basic,<br>Bearer {token} | Return signed user information |
-| POST | api/movie/search | keyword,<br> type (optional) | Basic | Returns search results by keyword |
-| POST | api/movie/findById | movieId | Basic,<br>Bearer {token} | Returns all details from a single movie |
-| GET | api/movie/showPlaylist | ✖️ | Basic, <br>Bearer {token} | Returns signed user own playlist |
-| POST | api/movie/addToPlaylist | movieId | Basic, <br>Bearer {token} | Saves movie to user own playlist |
-| GET | api/movie/getToplist | ✖️ | Basic | Return 10 most popular movies |
-| POST | api/movie/setWatched | movieId | Basic,<br>Bearer {token} | Sets 'watched' to true if false and vice versa |
+| POST | user/register | name, email, password | Basic | Register user and return JWT-token |
+| POST | user/login | email, password | Basic | Login user and return JWT-token |
+| GET | user/getInfo | ✖️ | Basic,<br>Bearer {token} | Return signed user information |
 
+### Search
+
+| Method | URL | Parameters | Authentication | Description |
+|--------|-----|------------|----------------|-------------|
+| POST | movie/search | keyword,<br> type (optional) | Basic | Returns search results by keyword |
+| POST | movie/findById | movieId | Basic,<br>Bearer {token} | Returns all details from a single movie |
+| GET | video/imdbLatest | ✖️ | Basic | Returns 10 last uploaded videos from IMDb channel |
+
+### Playlist
+
+| Method | URL | Parameters | Authentication | Description |
+|--------|-----|------------|----------------|-------------|
+| Post | movie/showPlaylist | ✖️ | Basic, <br>Bearer {token} | Returns signed user own playlist |
+| POST | movie/addToPlaylist | movieId,<br>movieName | Basic, <br>Bearer {token} | Saves movie to user own playlist |
+| GET | movie/getToplist | ✖️ | Basic | Return 10 most popular movies |
+| POST | movie/setWatched | movieId | Basic,<br>Bearer {token} | Sets 'watched' to true if false and vice versa |
