@@ -35,7 +35,7 @@ Miten toteuttaa Angularin ja Laravelin, sekä ulkoisen rajapinnan (OMDB) väline
 Loppujenlopuksi, onnistuimme hyvin ja pääsimme käyttämään aivan uusia tekniikoita saavuttaaksemme halutun lopputuloksen.
 Trial and error typpisesti.
 
-Aku Lehtonen - 5
+Aku Lehtonen - 5  
 Leevi Kopakkala - 5
 
 # MovieApp
