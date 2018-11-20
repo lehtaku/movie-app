@@ -196,17 +196,6 @@ class JWTAuthenticate extends BaseMiddleware
      */
     public function handle($request, \Closure $next)
     {
-         //Here we put our client domains
-         $trusted_domains = ["http://localhost:4200", "localhost:4200"];
-        
-         if(isset($request->server()['HTTP_ORIGIN'])) {
-             $origin = $request->server()['HTTP_ORIGIN'];
- 
-             if(in_array($origin, $trusted_domains)) {
-                 header('Access-Control-Allow-Origin: ' . $origin);
-                 header('Access-Control-Allow-Headers: Origin, Content-Type');
-             }
-         }
         // Set custom header name for token
         $this->auth->setRequest($request)->parseToken("bearer","JWT-X");
         if (! $token = $this->auth->setRequest($request)->getToken()) {
