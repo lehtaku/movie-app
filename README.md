@@ -536,7 +536,7 @@ export  class  ApiService {
 ```
 
 Auth Service:
-Ehkäpä monimutkaisin osuus koko projektista
+Ehkäpä monimutkaisin osuus koko projektista, koska piti tukea JWT Authia
 
 ```ts
 import { Injectable } from '@angular/core';
@@ -590,6 +590,7 @@ export class AuthenticationService {
 ```
 
 Routet:
+Tässä olennaisena AuthGuard ja routien parametrit route/:parametri
 
 ```ts
 import {NgModule} from '@angular/core';
@@ -614,6 +615,240 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class AppRoutingModule {
+}
+
+```
+
+Auth Guard:
+Tämäkin piti implementoida itse. Eli jos ei tokenia löydy palaa /login sivulle
+
+```ts
+import { Injectable } from '@angular/core';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
+import { AuthenticationService } from '../../services/auth.service';
+
+@Injectable({ providedIn: 'root' })
+export class AuthGuard implements CanActivate {
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService
+    ) {}
+
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const currentUser = this.authenticationService.currentUserValue;
+        if (currentUser) {
+            // authorised so return true
+            return true;
+        }
+
+        // not logged in so redirect to login page with the return url
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+        return false;
+    }
+}
+```
+Interceptorit jotka luotu JWT Authia varten:
+
+```ts
+
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+import { AuthenticationService } from '../../services/auth.service';
+
+@Injectable()
+export class ErrorInterceptor implements HttpInterceptor {
+    constructor(private authenticationService: AuthenticationService) {}
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(request).pipe(catchError(err => {
+            if (err.status === 401) {
+                // auto logout if 401 response returned from api
+                this.authenticationService.logout();
+                location.reload(true);
+            }
+            
+            const error = err.error.message || err.statusText;
+            return throwError(error);
+        }))
+    }
+}
+
+```
+
+```ts
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { AuthenticationService } from '../../services/auth.service';
+
+@Injectable()
+export class JwtInterceptor implements HttpInterceptor {
+    constructor(private authenticationService: AuthenticationService) {}
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        // Add JWT and Basic Auth Headers
+        let currentUser = this.authenticationService.currentUserValue;
+        if (currentUser && currentUser.token) {
+            request = request.clone({
+                setHeaders: { 
+                    Authorization : `Basic ZW5kdW14Oll0U21DbU9wU1I=`, // This to get past Basic Auth
+                    'JWT-X': `Bearer ${currentUser.token}`
+                }
+            });
+        }
+
+        return next.handle(request);
+    }
+}
+```
+
+### Componentit (esimerkit, koska näitäkin todella monta):
+
+```ts
+import {Component, OnInit} from '@angular/core';
+
+import { Router } from '@angular/router';
+
+import { AuthenticationService } from './../services/auth.service';
+import { User } from './models/user';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  providers: [ AuthenticationService ],
+})
+export class AppComponent implements OnInit {
+  showMenu = false;
+
+  currentUser: User;
+  logged = false;
+
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+    ) {
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        console.log(this.currentUser);
+    }
+
+  ngOnInit() {
+    if (localStorage.hasOwnProperty('currentUser') == true) {
+      this.logged = true;
+      console.log(this.logged);
+    }
+  }
+
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
+
+
+}
+
+
+```
+Tässä tulee huomata se kuinka lapsi componentille voidaan asettaa property (title) jota se voi käyttää.
+```html
+<video ng-init="this.play()" id="background-image" #videoPlayer autoplay muted loop>
+    <source src="/src/assets/login.webm" type="video/webm"/>
+    <source src="/src/assets/login.mp4" type="video/mp4">
+    <source src="/src/assets/login.ogv" type="video/ogg"/>   
+    
+</video>
+<div class="page" onload>
+    
+    <section id="home-header">
+            <img src="/src/assets/movieapptransparent.png">
+        <h1 class="home-header home-header-big">See, create, watch<br><small class="home-header-hashtag">#movieapp</small></h1>
+        <!--<video id="background-image" autoplay muted loop>
+            <source src="../../assets/login.mp4" type="video/mp4">
+                    <source src="../../assets/login.ogv" type="video/ogg"/>   
+                    <source src="../../assets/login.webm" type="video/webm"/>
+        </video>-->
+        <p class="home-header home-header-small"><span style="color:rgb(138, 0, 0)">Create</span> your own playlist</p>
+        <!--
+        <iframe src="https://www.youtube.com/embed/rQb_YTLXvco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+    </section>
+    
+    <section id="popular-movies name-header-popular">
+            <h1 class="popular-header name-header"><fa-icon class="menu-button-icon" icon="home"></fa-icon> Welcome,<span style="color:rgb(219, 0, 0)">{{ userDetails['name']}}</span></h1>       
+    </section>
+    <section id="popular-movies">
+        <app-playlist></app-playlist>     
+    </section>
+    <section id="popular-movies">
+        <h1 class="popular-header">Community favourites</h1>
+        <app-popular></app-popular>           
+    </section>
+    <section id="popular-movies">
+        <h1 class="popular-header" style="font-size:1rem">Search:</h1>
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+            <input formControlName="search" type="text" placeholder="Search for a title" class="form-control search-title"/>   
+            <button class="btn btn-primary">Search</button>
+        </form>
+    </section>
+    <section id="popular-movies">
+        <h1 class="popular-header">Marvel</h1>
+        <app-suggested title='Marvel'></app-suggested>           
+    </section>
+    <section id="popular-movies">
+        <h1 class="popular-header">Live long and prosper</h1>
+        <app-suggested title='Star Trek'></app-suggested>           
+    </section>
+    <section id="popular-movies">
+        <h1 class="popular-header">I am your father</h1>
+        <app-suggested title='Star Wars'></app-suggested>           
+    </section>
+    <section id="popular-movies">
+            <h1 class="popular-header">Be A Superhero</h1>
+            <app-suggested title='Avengers'></app-suggested>           
+        </section>
+</div>
+
+```
+
+Ja tämä app-suggested componentti:
+
+```ts
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ApiService } from  '../../services/api.service';
+import { AuthenticationService } from '../../services/auth.service';
+
+
+@Component({
+  selector: 'app-suggested',
+  templateUrl: './suggested.component.html',
+  styleUrls: ['./suggested.component.scss']
+})
+export class SuggestedComponent implements OnInit {
+
+  @Input() title:string;
+
+  popularMovies:  Array<any> = [];
+  constructor(private  apiService:  ApiService, private authService: AuthenticationService) { }
+
+  ngOnInit() {
+    this.getMovie(this.title);
+  }
+
+  public getMovie(title){
+    this.apiService.searchMovie(title).subscribe((data:  Array<any>) => {
+        this.popularMovies = data;
+    });
+  }
+
+
 }
 
 ```
