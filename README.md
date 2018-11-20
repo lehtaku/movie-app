@@ -26,6 +26,8 @@ https://www.youtube.com/watch?v=45yHiU1g4G0&feature=youtu.be
 * TTMS0500
 #### Päivämäärä
 Valmistunut ja esitelty: 20.11.2018
+#### Ajankäyttö
+Harjoitustyöhön käytettiin aikaa noin 40h / henkilö.
 
 # MovieApp
 
