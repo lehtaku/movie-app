@@ -19,6 +19,9 @@ https://www.youtube.com/watch?v=45yHiU1g4G0&feature=youtu.be
 * Aku Lehtonen - K9264
 #### Kurssi
 * TTMS0900
+* TTMS0500
+#### Päivämäärä
+Valmistunut ja esitelty: 20.11.2018
 
 # MovieApp
 
