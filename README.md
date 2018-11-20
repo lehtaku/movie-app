@@ -34,6 +34,9 @@ Tämän lisäksi ajattelimme, että järkevintä on liittää TTMS0900 ja TTMS05
 
 #### JWT-Auth
 [JWT](https://github.com/tymondesigns/jwt-auth) eli JSON Web Token kompakti mutta turvallinen tapa varmentaa tiedonsiirtoa osapuolten välillä. JWT on nimensä mukaisesti JSON objekti, joka sisältää automaattisesti generoidun salausavaimen. Tässä tapauksessa käyttäjän kirjautuessa luodaan token, joka lähetetään vastauksena onnistuneesta kirjautumisesta ja tallennetaan muuttujaan. Aina käyttäjän lähettäessä pyyntöjä rajapintaan jotka hakevat/välittävät jotain käyttäjään liittyvää tietoa, vaaditaan pyynnön mukana token joka varmentaa käyttäjän. Se helpottaa käytettävyyttä ja lisää turvallisuutta. Token koostuu kolmesta osasta: 
+
+`xxxxx.yyyyy.zzzzz`
+
 * Header
     * Sisältää kaksi osaa, Tokenin tyyppi (JWT) ja käytettävä Hash algoritmi kuten SHA256 tai RSA  
     tämän jälkeen tieto Base64Url enkoodataan
@@ -53,12 +56,8 @@ Tämän lisäksi ajattelimme, että järkevintä on liittää TTMS0900 ja TTMS05
       base64UrlEncode(header) + "." +
       base64UrlEncode(payload),
       secret)
-    ```
-
-Eli token on aina muotoa:  
-`xxxxx.yyyyy.zzzzz`
-
-HTTP-Headeriin liitettävä autentikaatio:  
+    ```   
+Kuvassa token joka palautuu käyttäjän kirjautuessa sisään, kun käyttäjä lähettää pyytöjä takaisin APIlle, lähetetään token osana HTTP-headeria jolloin voidaan validoida käyttäjä  
 `JWT-X: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE1NDIyMTE4OTQsImV4cCI6MTU0MjIxNTQ5NCwibmJmIjoxNTQyMjExODk0LCJqdGkiOiJkRkxtM0laTE10cHVkbmVZIn0.5B8zpGttm5NTSDcu-Zc-GepOc4jy-r9WKzxjS9N26kw`
 
 <img src="https://cdn.discordapp.com/attachments/514253512490614785/514254359740022794/Screenshot_2018-11-20_at_3.42.58.png">
