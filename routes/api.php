@@ -22,6 +22,7 @@ Route::middleware(['jwtx.auth'])->group(function () {
     // User playlist
     Route::post('movie/showPlaylist', 'PlaylistController@getPlaylist');
     Route::post('movie/addToPlaylist', 'PlaylistController@addToPlaylist');
+    Route::post('movie/removeFromPlaylist', 'PlaylistController@removeFromPlaylist');
     Route::post('movie/setWatched', 'PlaylistController@setWatched');
     Route::post('movie/findById', 'SearchController@findById');
 });
@@ -30,7 +31,7 @@ Route::middleware(['jwtx.auth'])->group(function () {
 Route::post('movie/search', 'SearchController@searchByKeyword');
 
 // IMDb's Youtube channel 10 latest videos
-Route::post('video/imdbLatest', 'SearchController@imdbLatest');
+Route::get('video/imdbLatest', 'SearchController@imdbLatest');
 
 // Playlist functionality
 Route::get('movie/getToplist', 'PlaylistController@getToplist');

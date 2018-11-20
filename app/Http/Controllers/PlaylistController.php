@@ -57,6 +57,28 @@ class PlaylistController extends Controller
         }
     }
 
+    public function removeFromPlaylist(Request $request) {
+        $movieId = $request->movieId;
+        $userId = $this->getUserId();
+
+        try {
+            $item = Playlist::where([
+                'movie_id' => $movieId,
+                'user_id' => $userId
+            ])->first();
+
+            if ($item == null) {
+                return "Item is not in your playlist";
+            } else {
+                $item->delete();
+                return "Item removed succesfully";
+            }
+        }
+        catch (\Exception $e) {
+            return 'Unable to delete item: ' . $e->getMessage();
+        }
+    }
+
     public function getToplist()
     {
         try {
