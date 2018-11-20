@@ -26,8 +26,6 @@ https://www.youtube.com/watch?v=45yHiU1g4G0&feature=youtu.be
 * TTMS0500
 #### Päivämäärä
 Valmistunut ja esitelty: 20.11.2018
-#### Ajankäyttö
-Harjoitustyöhön käytettiin aikaa noin 40h / henkilö.
 
 # MovieApp
 
@@ -118,7 +116,41 @@ echo $res->getBody();
     * Select watched / not watched ✔️
 * Videos
     * Get 10 last uploaded videos from IMDb Youtube channel ✔️
+    
+    
+## Migraatiot
+```php
 
+Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+       
+```
+```php
+Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
+```
+```php
+ Schema::create('playlists', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('movie_id', 16);
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->boolean('watched')->default(false);
+            $table->timestamps();
+        });
+```
 
 ### API Routes
 
