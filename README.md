@@ -12,11 +12,11 @@
 
 ***
 
-# Angular repositorio
+# Harjoitustyön tiedot
 
-https://github.com/LeeviKopakkala/movie-app-Angular
+[Angular projektin repositorio](https://github.com/LeeviKopakkala/movie-app-Angular)
 
-https://www.youtube.com/watch?v=45yHiU1g4G0&feature=youtu.be
+[Videoesittely käyttöliittymästä](https://www.youtube.com/watch?v=45yHiU1g4G0&feature=youtu.be)
 
 #### Tekijät
 * Leevi Kopakkala - K8292
