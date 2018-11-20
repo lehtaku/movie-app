@@ -35,6 +35,7 @@ Tämän lisäksi ajattelimme, että järkevintä on liittää TTMS0900 ja TTMS05
 #### JWT-Auth
 [JWT](https://github.com/tymondesigns/jwt-auth) eli JSON Web Token kompakti mutta turvallinen tapa varmentaa tiedonsiirtoa osapuolten välillä. JWT on nimensä mukaisesti JSON objekti, joka sisältää automaattisesti generoidun salausavaimen. Tässä tapauksessa käyttäjän kirjautuessa luodaan token, joka lähetetään vastauksena onnistuneesta kirjautumisesta ja tallennetaan muuttujaan. Aina käyttäjän lähettäessä pyyntöjä rajapintaan jotka hakevat/välittävät jotain käyttäjään liittyvää tietoa, vaaditaan pyynnön mukana token joka varmentaa käyttäjän. Se helpottaa käytettävyyttä ja lisää turvallisuutta.
 
+HTTP-Headeriin liitettävä autentikaatio:  
 `JWT-X: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE1NDIyMTE4OTQsImV4cCI6MTU0MjIxNTQ5NCwibmJmIjoxNTQyMjExODk0LCJqdGkiOiJkRkxtM0laTE10cHVkbmVZIn0.5B8zpGttm5NTSDcu-Zc-GepOc4jy-r9WKzxjS9N26kw`
 
 <img src="https://cdn.discordapp.com/attachments/514253512490614785/514254359740022794/Screenshot_2018-11-20_at_3.42.58.png">
@@ -59,6 +60,8 @@ echo $res->getBody();
 
 #### Homestead
 [Homestead](https://laravel.com/docs/5.7/homestead) on Laravel-kehitykseen optimoitu virtuaalikone. Se asennetaan yhtenä pakettina käyttäen [Vagranttia](https://www.vagrantup.com/), joka on erilaisten kehitysympäristöjen hallintaan ja asentamiseen käytetty työkalu. Homesteadin asentaminen ja käyttöönotto on vaivatonta eikä vaadi asennettavaksi erikseen PHP:tä, web-palvelinta tai muuta vastaavaa. Se sisältää valmiina ominaisuuksia kuten Linux (Ubuntu 18.04), Git, PHPn, Nginxin, MySQL, Composer ja paljon muuta hyödyllistä.
+
+<img src="https://cdn.discordapp.com/attachments/514253512490614785/514255482316128266/Screenshot_2018-11-20_at_3.47.23.png">
 
 #### Postman
 [Postman](https://www.getpostman.com/) on rajapintojen kehittämiseen tarkoitettu työkalu. Se on täysin ilmainen ja tekee kehittämisestä helpompaa ja tehokkaampaa. Postmanilla pystyy lähettämään API requesteja eli kutsuja rajapintaan haluamallaan HTTP metodilla ja ohjelma palauttaa vastauksen joko JSON, raaka tai HTML muodossa. Postmanissa pystyy luomaan kokoelmia pyynnöistä eli samaa pyyntöä voi käyttää myöhemmin uudelleen eikä sitä tarvitse laatia joka kerta uudelleen. Pyyntöön pystyy liittämään haluamiaan parametrejä ja autentikointimenetelmiä vaivattomasti. Postmanilla on mahdollista luoda myös erilaisia testejä ja monitoroimaan APIn tilaa. Postmanista on saatavilla selaimeen asennettava versio sekä työpyötäsovellus.
