@@ -24,14 +24,17 @@ Tämän lisäksi ajattelimme, että järkevintä on liittää TTMS0900 ja TTMS05
 ### Paketit & työkalut:
 
 #### JWT-Auth
-[JWT-Auth](https://github.com/tymondesigns/jwt-auth)
+[JWT](https://github.com/tymondesigns/jwt-auth) eli JSON Web Token kompakti mutta turvallinen tapa varmentaa tiedonsiirtoa osapuolten välillä. JWT on nimensä mukaisesti JSON objekti, joka sisältää automaattisesti generoidun salausavaimen. Tässä tapauksessa käyttäjän kirjautuessa luodaan token, joka lähetetään vastauksena onnistuneesta kirjautumisesta ja tallennetaan muuttujaan. Aina käyttäjän lähettäessä pyyntöjä rajapintaan jotka hakevat/välittävät jotain käyttäjään liittyvää tietoa, vaaditaan pyynnön mukana token joka varmentaa käyttäjän. Se helpottaa käytettävyyttä ja lisää turvallisuutta.
 
+`JWT-X: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE1NDIyMTE4OTQsImV4cCI6MTU0MjIxNTQ5NCwibmJmIjoxNTQyMjExODk0LCJqdGkiOiJkRkxtM0laTE10cHVkbmVZIn0.5B8zpGttm5NTSDcu-Zc-GepOc4jy-r9WKzxjS9N26kw`
+
+![JWT](https://media.discordapp.net/attachments/499833921513586688/512304344461475851/unknown.png)
 
 #### Laravel-CORS
-[Laravel-CORS](https://github.com/barryvdh/laravel-cors) 
+[Laravel-CORS](https://github.com/barryvdh/laravel-cors) eli Cross-Origin Resource Sharing on mekanismi jonka avulla voidaan sallia suojatun/rajoitetun pääsyn takana olevan tiedon lähettäminen valituille verkkopalveluille. Eli kutsuja lähettävän palvelun (tässä tapauksessa käyttöliittymän) toimiessa kokonaan eri osoitteessa, saadaan sallittua tiedon lähettäminen.
 
 #### Guzzle
-[Guzzle](http://docs.guzzlephp.org/en/stable/) on PHP-pohjainen ohjelma, joka on tarkoitettu HTTP pyyntöjen lähettämiseen. Guzzlella voi luoda helposti kutsuja, hallita evästeitä, lähettää JSON dataa ja paljon muuta. Guzzlella voi luoda synkronisia (blocking) ja asynkronisia (non-blocking) pyyntöjä. Guzzle asennetaan käyttäen Composer paketinhallintaohjelmistoa. Perus hakupyynnön lähettäminen Guzzlella on vaivatonta:
+[Guzzle](http://docs.guzzlephp.org/en/stable/) on PHP-pohjainen ohjelma, joka on tarkoitettu HTTP pyyntöjen lähettämiseen. Guzzlella voi luoda helposti kutsuja, hallita evästeitä, lähettää JSON dataa ja paljon muuta. Guzzlella voi luoda synkronisia (blocking) ja asynkronisia (non-blocking) pyyntöjä. Perus hakupyynnön lähettäminen Guzzlella on vaivatonta:
 ```php
 $client = new GuzzleHttp\Client();
 $res = $client->request('GET', 'https://api.github.com/user');
@@ -54,7 +57,6 @@ echo $res->getBody();
 ### Tuotantopalvelin
 
 #### CentOS 7 & Apache
-
 
 
 
