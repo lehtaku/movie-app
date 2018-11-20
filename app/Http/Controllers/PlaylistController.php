@@ -71,7 +71,7 @@ class PlaylistController extends Controller
                 return "Item is not in your playlist";
             } else {
                 $item->delete();
-                return "Item removed succesfully";
+                return auth()->user();
             }
         }
         catch (\Exception $e) {
