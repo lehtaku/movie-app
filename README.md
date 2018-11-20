@@ -6,6 +6,9 @@
 <p align="center">
     <img height="40px" src="https://cdn.worldvectorlogo.com/logos/angular-3.svg">
 </p>
+<p align="center">
+    <img height="75px" src="https://ubisafe.org/images/svg-logo-laravel-6.png">
+</p>
 
 ***
 
@@ -144,8 +147,6 @@ Send all requests to:
 
 ## Middleware
 
-Koska palvelimella on käytössä Basic Auth, jouduimme luomaan oman middlewaren.
-
 ```php
 <?php
 
@@ -195,4 +196,233 @@ class JWTAuthenticate extends BaseMiddleware
         $this->events->fire('tymon.jwt.valid', $user);
         return $response;
     }
+```
+
+## Playlist Controller
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Playlist;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+class PlaylistController extends Controller
+{
+    private $playlist;
+
+    public function __construct(Playlist $playlist)
+    {
+        $this->playlist = $playlist;
+    }
+
+    public function getPlaylist()
+    {
+        try {
+            $playlist = Playlist::where('user_id', $this->getUserId())
+                ->latest()
+                ->get();
+            return $playlist;
+        }
+        catch (\Exception $e) {
+            return 'Unable to get playlist: ' . $e->getMessage();
+        }
+    }
+
+    public function addToPlaylist(Request $request)
+    {
+        try {
+            $movieId = $request->movieId;
+            $movieName = $request->movieName;
+            $userId = $this->getUserId();
+
+            $item = Playlist::where([
+                'movie_id' => $movieId,
+                'name' => $movieName,
+                'user_id' => $userId
+            ])->first();
+
+            if ($item !== null) {
+                return 'Movie '. $movieId .' is already on your playlist';
+            } else {
+                $this->playlist->movie_id = $movieId;
+                $this->playlist->name = $movieName;
+                $this->playlist->user_id = $userId;
+                $this->playlist->save();
+                return $this->playlist;
+            }
+        }
+        catch (\Exception $e) {
+            return 'Unable to save item to playlist: ' . $e->getMessage();
+        }
+    }
+
+    public function removeFromPlaylist(Request $request) {
+        $movieId = $request->movieId;
+        $userId = $this->getUserId();
+
+        try {
+            $item = Playlist::where([
+                'movie_id' => $movieId,
+                'user_id' => $userId
+            ])->first();
+
+            if ($item == null) {
+                return "Item is not in your playlist";
+            } else {
+                $item->delete();
+                return auth()->user();
+            }
+        }
+        catch (\Exception $e) {
+            return 'Unable to delete item: ' . $e->getMessage();
+        }
+    }
+
+    public function getToplist()
+    {
+        try {
+            $topList = DB::table('playlists')
+                ->select('name', DB::raw('COUNT(name) AS `amount`'))
+                ->groupBy('name')
+                ->latest('amount')
+                ->take(10)
+                ->get();
+            return $topList;
+        }
+        catch (\Exception $e) {
+            return 'Unable to get toplist: ' . $e->getMessage();
+        }
+    }
+
+    public function setWatched(Request $request)
+    {
+        try {
+            $item = Playlist::where([
+                'movie_id' => $request->movieId,
+                'user_id' => $this->getUserId()
+            ])->first();
+            $item->watched = !$item->watched;
+            $item->save();
+            return $item;
+        }
+        catch (\Exception $e) {
+            return 'Unable to change watched state: ' . $e->getMessage();
+        }
+    }
+
+    public function getUserId()
+    {
+        return auth()->id();
+    }
+}
+
+```
+
+## Search Controller
+
+```php
+<?php
+namespace App\Http\Controllers;
+use App\Playlist;
+use Illuminate\Http\Request;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+use PhpParser\Node\Expr\Cast\Object_;
+
+class SearchController extends Controller
+{
+    private $ytClient;
+    private $ytApiKey;
+
+    private $omdbClient;
+    private $omdbApiKey;
+
+    public function __construct()
+    {
+        // Clients
+        $this->omdbClient = new Client(['base_uri' => 'http://www.omdbapi.com/']);
+        $this->ytClient = new Client(['base_uri' => 'https://www.googleapis.com/youtube/v3/search']);
+
+        // API Keys
+        $this->omdbApiKey = config('app.omdb_key');
+        $this->ytApiKey = config('app.yt_key');
+    }
+
+    public function searchByKeyword(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        if ($request->type !== null) {
+            $movieType = $request->type;
+        } else {
+            $movieType = '';
+        }
+
+        try {
+            $response = $this->omdbClient->request('GET', '?apikey=' . $this->omdbApiKey . '&s=' . $keyword . '&type=' . $movieType)->getBody();
+            $json = json_decode($response, true);
+
+            if ($json['Response'] === 'False') return $json['Error'];
+
+            return $json['Search'];
+        }
+        catch (\Exception $e) {
+            return 'Unable to make search: ' . $e->getMessage();
+        }
+    }
+
+    public function findById(Request $request)
+    {
+        $movieId = $request->movieId;
+        $userId = $this->getUserId();
+
+        try {
+            $response = $this->omdbClient->request('GET', '?apikey=' . $this->omdbApiKey . '&i=' . $movieId . '&plot=full')->getBody();
+            $json = json_decode($response, true);
+
+            if ($json['Response'] === 'False') return $json['Error'];
+            $json['InPlaylist'] = $this->checkIfWatched($userId, $movieId);
+
+            return $json;
+        }
+        catch (\Exception $e) {
+            return 'Unable to find that item: ' . $e->getMessage();
+        }
+    }
+
+    public function imdbLatest()
+    {
+        try {
+            $response = $this->ytClient->request('GET', '?part=snippet&channelId=UC_vz6SvmIkYs1_H3Wv2SKlg&maxResults=10&order=date&type=video&key=' . $this->ytApiKey)->getBody();
+            $json = json_decode($response, true);
+
+            foreach ($json['items'] as $item) {
+                $videoUrls[] = 'https://www.youtube.com/watch?v=' . $item['id']['videoId'];
+            }
+
+            return $videoUrls;
+        }
+        catch (\Exception $e) {
+            return 'Unable to search videos: ' . $e->getMessage();
+        }
+    }
+
+    public function getUserId()
+    {
+        return auth()->id();
+    }
+
+    public function checkIfWatched($userId, $movieId)
+    {
+        $item = Playlist::where([
+            'movie_id' => $movieId,
+            'user_id' => $userId
+            ])->first();
+
+        return ($item == null ? false : true);
+    }
+}
 ```
