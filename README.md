@@ -12,6 +12,10 @@
 
 ***
 
+# Angular repositorio
+
+https://github.com/LeeviKopakkala/movie-app-Angular
+
 https://www.youtube.com/watch?v=45yHiU1g4G0&feature=youtu.be
 
 #### Tekijät
