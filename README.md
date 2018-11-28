@@ -24,19 +24,11 @@
 #### Kurssi
 * TTMS0900
 * TTMS0500
-#### Päivämäärä
-Valmistunut ja esitelty: 20.11.2018
 
 #### Itsearvio
 
 Vaikka molemmat olimme käyttäneet Laravelia aikaisemmin, tuli tässä projektissa paljon uusia haasteita.
-Miten toteuttaa Angularin ja Laravelin, sekä ulkoisen rajapinnan (OMDB) välinen liikenne ja näiden autentikaatiot.
-
-Loppujenlopuksi, onnistuimme hyvin ja pääsimme käyttämään aivan uusia tekniikoita saavuttaaksemme halutun lopputuloksen.
-Trial and error typpisesti.
-
-Aku Lehtonen - 5  
-Leevi Kopakkala - 5
+Miten toteuttaa Angularin ja Laravelin, sekä ulkoisen rajapinnan (OMDB) välinen liikenne ja näiden autentikaatiot
 
 # MovieApp
 
