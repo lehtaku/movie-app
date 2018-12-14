@@ -12,33 +12,15 @@
 
 ***
 
-# Harjoitustyön tiedot
+# MovieApp
+
+MovieApp on käyttäjäpohjainen sovellus jossa käyttäjä voi luoda tunnuksen, hakea elokuvia [The Open Movie Databasesta](http://www.omdbapi.com/), hakea elokuvien tietoja ja lisätä elokuvia omalle soittolistalle. Soittolistalla elokuvat on mahdollista merkitä katsotuksi. Sovellus näyttää myös 10 käyttäjien eniten soittolistalle lisättyä elokuvaa. Sivulla listataan IMDbn Youtube kanavalta 10 viimeksi lisättyä videota jotka on haettu Youtuben virallisesta [APIsta](https://console.cloud.google.com/apis/library/youtube.googleapis.com?id=125bab65-cfb6-4f25-9826-4dcc309bc508&project=project1-1539692939637).
+
+# Käyttöliittymä
 
 [Angular projektin repositorio](https://github.com/LeeviKopakkala/movie-app-Angular)
 
 [Videoesittely käyttöliittymästä](https://www.youtube.com/watch?v=45yHiU1g4G0&feature=youtu.be)
-
-#### Tekijät
-* Leevi Kopakkala - K8292
-* Aku Lehtonen - K9264
-#### Kurssi
-* TTMS0900
-* TTMS0500
-
-Päivämäärä
-Valmistunut ja esitelty: 20.11.2018
-
-#### Itsearvio
-
-Vaikka molemmat olimme käyttäneet Laravelia aikaisemmin, tuli tässä projektissa paljon uusia haasteita.
-Miten toteuttaa Angularin ja Laravelin, sekä ulkoisen rajapinnan (OMDB) välinen liikenne ja näiden autentikaatiot
-
-Aku Lehtonen - 5
-Leevi Kopakkala - 5
-
-# MovieApp
-
-MovieApp on käyttäjäpohjainen sovellus jossa käyttäjä voi luoda tunnuksen, hakea elokuvia [The Open Movie Databasesta](http://www.omdbapi.com/), hakea elokuvien tietoja ja lisätä elokuvia omalle soittolistalle. Soittolistalla elokuvat on mahdollista merkitä katsotuksi. Sovellus näyttää myös 10 käyttäjien eniten soittolistalle lisättyä elokuvaa. Sivulla listataan IMDbn Youtube kanavalta 10 viimeksi lisättyä videota jotka on haettu Youtuben virallisesta [APIsta](https://console.cloud.google.com/apis/library/youtube.googleapis.com?id=125bab65-cfb6-4f25-9826-4dcc309bc508&project=project1-1539692939637). 
 
 ## Lähtökohta
 
